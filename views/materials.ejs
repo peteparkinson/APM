@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+
+    <% include  templates/header.ejs%>
+
+    <h1><%= title %></h1>
+    <p><%= message %></p>
+
+    <h3> Search Materials: </h3>
+    <input type="text" id="searchMat">
+    <br>
+    <br>
+    <select id="">
+        <option selected value="base">Please Select</option>
+        <!--
+            This is where you'll loop through the materials JSON flie
+            to list all materials.  you'll have to filter the values 
+            that populate on the list based on user input for "searchMat"
+        -->
+        <option value="woodFrame">Wood frame</option>
+        <option value="phoneBooth">Phone Booth</option>
+        </select>
+        <br />
+        </select>
+    
+  </body>
+</html>
+
