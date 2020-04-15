@@ -1,33 +1,135 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
+    <head>
+    <link rel='stylesheet' href='stylesheets/style.css'>
 
-    <% include  templates/header.ejs%>
+        <script type="text/javascript">
+            //auto expand textarea
+            function adjust_textarea(h) {
+                h.style.height = "20px";
+                h.style.height = (h.scrollHeight)+"px";
+            }
+        </script>
 
-    <h1><%= title %></h1>
-    <p><%= message %></p>
+    </head>
+    <body>
+        <h1>
+            Manage Materials
+        </h1>
+        <div class="link" style=" padding-left:20px; white-space:nowrap;">
+            <a href="/">Home</a> 
+            <a href="/">Materials</a> 
+            <a href="/">View Projects</a> 
+            <a href="/">Edit Projects</a> 
+            <a href="/">Customers</a> 
+            <a href="/">Invoice</a> 
+            <a href="/">Reports</a> 
+            <a href="/">About</a> 
+        </div>
+        <br>
 
-    <h3> Search Materials: </h3>
-    <input type="text" id="searchMat">
-    <br>
-    <br>
-    <select id="">
-        <option selected value="base">Please Select</option>
-        <!--
-            This is where you'll loop through the materials JSON flie
-            to list all materials.  you'll have to filter the values 
-            that populate on the list based on user input for "searchMat"
-        -->
-        <option value="woodFrame">Wood frame</option>
-        <option value="phoneBooth">Phone Booth</option>
-        </select>
-        <br />
-        </select>
-    
-  </body>
+        <form class="forms">
+            <h1>
+                Details
+            </h1>
+            <!--
+                maxlength doesn't work for number fields, so the script in those fields
+                limits input to defined maxlength
+            -->
+            <ul>
+                <li>
+                    <label for="material">Name</label>
+                    <input type="text" name="material" maxlength="100">
+                </li>
+                <li>
+                    <label for="qty">Quantity in stock</label>
+                    <input type="number" name="qty" maxlength="3" min="0" max="999"
+                    oninput="javascript: 
+                    if (this.value.length > 3) this.value = this.value.slice(0, this.maxLength);">
+                </li>
+                <li>
+                    <label for="qtyUsed">Quantity in use</label>
+                    <input type="number" name="qtyUsed" maxlength="3" min="0" max="999"
+                    oninput="javascript: 
+                    if (this.value.length > 3) this.value = this.value.slice(0, this.maxLength);">
+                </li>
+                <li>
+                    <label for="cost">Cost</label>
+                    <input type="number" name ="cost" step="0.01" maxlength="3" min="0.01" max="999">
+                </li>
+                <li>
+                    <label for="extcost">Extended Cost</label>
+                    <input type="number" name ="extcost" step="0.01" maxlength="3" min="0.01" max="999">
+                </li>
+                <li>
+                    <label for="notes">Notes</label>
+                    <textarea name="notes" onkeyup="adjust_textarea(this)"></textarea>
+                </li>
+                <li>
+                    <!--
+                        Note, I changed this to "button" type instead of "submit"
+                        this will have consequences down the road
+                        Also, check the reset button down below
+                    -->
+                    <input type="button" value="Submit" >
+                </li>
+            </ul>
+        </form>
+
+        <form class="forms">
+            <h1>
+                Search
+            </h1>
+            <!--
+                maxlength doesn't work for number fields, so the script in those fields
+                limits input to defined maxlength
+            -->
+            <ul>
+                <li>
+                    <label for="filter">Filter</label>
+                    <input type="text" name="filter" maxlength="20">
+                </li>
+
+                <select id="materials" name="materials" size="8" style="height: 255px; 
+                color: #5C5C5C; margin-bottom: 20px;">
+                    <option value="Material 1">Material 1</option>
+                    <option value="Material 2">Material 2</option>
+                    <option value="Material 3">Material 3</option>
+                    <option value="Material 4">Material 4</option>
+                </select>
+
+
+                <li>
+                    <!--
+                        Note, I changed this to "button" type instead of "submit"
+                        this will have consequences down the road
+                        Also, check the reset button down below
+                    -->
+                    <input type="button" value="Clear" >
+                </li>
+            </ul>
+        </form>
+                
+        <form class="forms">
+            <h1>
+                Related Projects
+            </h1>
+            <!--
+                maxlength doesn't work for number fields, so the script in those fields
+                limits input to defined maxlength
+            -->
+            <ul>
+
+                <select id="materials" name="materials" size="8" style="height: 310px; 
+                color: #5C5C5C; min-width:200px">
+                    <option value="Project 1">Project 1</option>
+                    <option value="Project 2">Project 2</option>
+                    <option value="Project 3">Project 3</option>
+                    <option value="Project 4">Project 4</option>
+                </select>
+            </ul>
+        </form>
+            
+    </body>
+
 </html>
-
