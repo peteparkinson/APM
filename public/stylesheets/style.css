@@ -1,24 +1,19 @@
 :root {
     /*
     Purple (light)
-    --colorMain: rgb(132, 65, 255);
-    --colorBorder: rgb(179, 127, 247);
+    --colorMain: rgb(171, 140, 228);
+    --colorBorder: rgb(133, 92, 187);
     --colorHover: rgb(207, 154, 250);
 
-    Blue
-    --colorMain: #4183FF;
-    --colorBorder: #5994FF;
-    --colorHover: #6B9FFF;
-
-    Aqua
+    Dark Blue
     --colorMain: rgb(24, 138, 184);
     --colorBorder: rgb(17, 86, 95);
-    --colorHover: rgb(73, 164, 187);
+    --colorHover: rgb(73, 150, 187);
     */
     
     --colorMain: rgb(24, 138, 184);
     --colorBorder: rgb(17, 86, 95);
-    --colorHover: rgb(73, 164, 187);
+    --colorHover: rgb(73, 150, 187);
     --fullwidth: 100%;
   }
 a{
