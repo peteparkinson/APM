@@ -10,22 +10,12 @@
                 h.style.height = (h.scrollHeight)+"px";
             }
         </script>
-
+        
     </head>
     <body>
-        <h1>
-            Manage Materials
-        </h1>
-        <div class="link" style=" padding-left:20px; white-space:nowrap;">
-            <a href="/">Home</a> 
-            <a href="/">Materials</a> 
-            <a href="/">View Projects</a> 
-            <a href="/">Edit Projects</a> 
-            <a href="/">Customers</a> 
-            <a href="/">Invoice</a> 
-            <a href="/">Reports</a> 
-            <a href="/">About</a> 
-        </div>
+        <h1><%= title %></h1>
+        <% include  templates/header.ejs%>
+
         <br>
 
         <form class="forms">
@@ -133,3 +123,4 @@
     </body>
 
 </html>
+
