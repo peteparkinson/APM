@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-    <link rel='stylesheet' href='stylesheets/style.css'>
+        <link rel='stylesheet' href='stylesheets/style.css'>
 
         <script type="text/javascript">
             //auto expand textarea
@@ -13,25 +13,29 @@
         
     </head>
     <body>
+        <!-- The following notation is .ejs specific.  should look into utilizing this more-->
         <h1><%= title %></h1>
         <% include  templates/header.ejs%>
-
         <br>
+        
+        <!-- the header is no-wrapped
+            each "column" is grouped as a "form" and each form is floated left 
+            so their elements wrap together
+        -->
 
+        <!-- Column 1 -->
         <form class="forms">
-            <h1>
-                Details
-            </h1>
-            <!--
-                maxlength doesn't work for number fields, so the script in those fields
-                limits input to defined maxlength
-            -->
+            <h1> Details </h1>
             <ul>
                 <li>
                     <label for="material">Name</label>
-                    <input type="text" name="material" maxlength="100">
+                    <input type="text" name="material" maxlength="30">
                 </li>
                 <li>
+                    <!--
+                        maxlength doesn't work for number fields, so the script in those fields
+                        limits input to defined maxlength
+                    -->
                     <label for="qty">Quantity in stock</label>
                     <input type="number" name="qty" maxlength="3" min="0" max="999"
                     oninput="javascript: 
@@ -66,54 +70,35 @@
             </ul>
         </form>
 
+        <!-- Column 2 -->
         <form class="forms">
-            <h1>
-                Search
-            </h1>
-            <!--
-                maxlength doesn't work for number fields, so the script in those fields
-                limits input to defined maxlength
-            -->
+            <h1> Search </h1>
             <ul>
                 <li>
                     <label for="filter">Filter</label>
-                    <input type="text" name="filter" maxlength="20">
+                    <input type="text" name="filter" maxlength="30">
                 </li>
-
-                <select class="box" id="materials" name="materials" size="8" style="height: 260px">
-                    <option value="Material 1">Material 1</option>
-                    <option value="Material 2">Material 2</option>
-                    <option value="Material 3">Material 3</option>
-                    <option value="Material 4">Material 4</option>
+                <select class="box" id="materials" name="materials" size="999" style="height: 260px">
+                    <option value="material1">Material 1</option>
+                    <option value="material2">Material 2</option>
+                    <option value="material3">Material 3</option>
+                    <option value="material4">Material 4</option>
                 </select>
-
-
                 <li>
-                    <!--
-                        Note, I changed this to "button" type instead of "submit"
-                        this will have consequences down the road
-                        Also, check the reset button down below
-                    -->
                     <input type="button" value="Clear" >
                 </li>
             </ul>
         </form>
-                
+        
+        <!-- Column 3 -->
         <form class="forms">
-            <h1>
-                Related Projects
-            </h1>
-            <!--
-                maxlength doesn't work for number fields, so the script in those fields
-                limits input to defined maxlength
-            -->
+            <h1> Related Projects </h1>
             <ul>
-
-                <select class="box" id="materials" name="materials" size="8">
-                    <option value="Project 1">Project 1</option>
-                    <option value="Project 2">Project 2</option>
-                    <option value="Project 3">Project 3</option>
-                    <option value="Project 4">Project 4</option>
+                <select class="box" id="projects" name="projects" size="999">
+                    <option value="project1">Project 1</option>
+                    <option value="project2">Project 2</option>
+                    <option value="project3">Project 3</option>
+                    <option value="project4">Project 4</option>
                 </select>
             </ul>
         </form>

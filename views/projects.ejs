@@ -7,89 +7,67 @@
     <body>
         <h1><%= title %></h1>
         <% include  templates/header.ejs%>
-            <form class="forms">
+
+        <!-- Column 1 -->
+        <form class="forms">
             <h1 style="margin: 0px 0px -22px 40px;">Open Projects</h1>
             <label class="switch" style="margin-bottom: 15px;">
                 <input type="checkbox" checked>
                 <span class="slider round"></span>
             </label>
-                <ul>
-                    <select class ="box" id="materials" name="materials" size="8">
-                        <option value="Project 1">Project 1</option>
-                        <option value="Project 2">Project 2</option>
-                        <option value="Project 3">Project 3</option>
-                        <option value="Project 4">Project 4</option>
-                    </select>
-                </ul>
+            <select class ="box" id="materials" name="materials" size="999">
+                <option value="Project 1">Project 1</option>
+                <option value="Project 2">Project 2</option>
+                <option value="Project 3">Project 3</option>
+                <option value="Project 4">Project 4</option>
+            </select>
+            <input type="button" value="Close Project" style="margin-top: 20px;">
+        </form>
+
+        <!-- Column 2 -->
+        <form class="forms">
+            <h1> Using Materials </h1>
+            <select  class="box" id="materials" name="materials" size="999" >
+                <option value="material1">Material 1</option>
+                <option value="material2">Material 2</option>
+                <option value="material3">Material 3</option>
+                <option value="material4">Material 4</option>
+            </select>
+        </form>
+
+        <!-- Column 3 -->
+        <form class="forms">
+            <h1> Costs </h1>
+            <ul>
                 <li>
-                    <!--
-                        Note, I changed this to "button" type instead of "submit"
-                        this will have consequences down the road
-                        Also, check the reset button down below
-                    -->
-                    <input type="button" value="Close Project" >
+                    <label for="hours">Hours</label>
+                    <input type="number" name="hours" maxlength="3" min="0" max="999"
+                    oninput="javascript: 
+                    if (this.value.length > 3) this.value = this.value.slice(0, this.maxLength);">
                 </li>
-
-            </form>
-
-            <form class="forms">
-                <h1>
-                    Using Materials
-                </h1>
-                <ul>
-    
-                    <select  class="box" id="materials" name="materials" size="8" >
-                        <option value="Project 1">Project 1</option>
-                        <option value="Project 2">Project 2</option>
-                        <option value="Project 3">Project 3</option>
-                        <option value="Project 4">Project 4</option>
-                    </select>
-                </ul>
-            </form>
-
-            <form class="forms">
-                <h1>
-                    Costs
-                </h1>
-                <!--
-                    maxlength doesn't work for number fields, so the script in those fields
-                    limits input to defined maxlength
-                -->
-                <ul>
-                    <li>
-                        <label for="hours">Hours</label>
-                        <input type="number" name="hours" maxlength="3" min="0" max="999"
-                        oninput="javascript: 
-                        if (this.value.length > 3) this.value = this.value.slice(0, this.maxLength);">
-                    </li>
-                    <li>
-                        <label for="materialCost">Materials</label>
-                        <input type="number" name ="materialCost" step="0.01" maxlength="3" min="0.01" max="999">
-                    </li>
-                    <li>
-                        <label for="total">Total</label>
-                        <input type="number" name ="total" step="0.01" maxlength="3" min="0.01" max="999">
-                    </li>
-
-                    <h1>
-                        Profit
-                    </h1>
-
-                    <li>
-                        <label for="charge">Charge</label>
-                        <input type="number" name ="charge" step="0.01" maxlength="3" min="0.01" max="999">
-                    </li>
-                    <li>
-                        <label for="net">Net</label>
-                        <input type="number" name ="net" step="0.01" maxlength="3" min="0.01" max="999">
-                    </li>
-                    <br><br>
-                    <li style="border:1px solid rgb(221, 221, 221);">
-                        <label for="customer">Customer</label>
-                        <input type="text" name ="customer" step="0.01" maxlength="3" min="0.01" max="999">
-                    </li>
-                </ul>
-            </form>
-
-  </body>
+                <li>
+                    <label for="materialCost">Materials</label>
+                    <input type="number" name ="materialCost" step="0.01" maxlength="3" min="0.01" max="999">
+                </li>
+                <li>
+                    <label for="total">Total</label>
+                    <input type="number" name ="total" step="0.01" maxlength="3" min="0.01" max="999">
+                </li>
+                <h1> Return </h1>
+                <li>
+                    <label for="charge">Charge</label>
+                    <input type="number" name ="charge" step="0.01" maxlength="3" min="0.01" max="999">
+                </li>
+                <li>
+                    <label for="net">Net</label>
+                    <input type="number" name ="net" step="0.01" maxlength="3" min="0.01" max="999">
+                </li>
+                <br><br>
+                <li style="border:1px solid rgb(221, 221, 221);">
+                    <label for="customer">Customer</label>
+                    <input type="text" name ="customer" maxlength="30" >
+                </li>
+            </ul>
+        </form>
+    </body>
 </html>
