@@ -1,13 +1,76 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <% include  templates/header.ejs%>
-  
+    <head>
+        <title><%= title %></title>
+        <link rel='stylesheet' href='/stylesheets/style.css' />
+    </head>
+    <body>
+        <h1><%= title %></h1>
+        <% include  templates/header.ejs%>
+        <br>
+        <!-- Column 1 -->
+        <form class="forms">
+            <ul>
+                <li>
+                    <label for="reportType">Report Type</label>
+                    <select id="reportType">
+                        <option value="select"></option>
+                        <option value="option1">Option 1</option>
+                        <option value="option2">Option 2</option>
+                        </select>
+                </li>                <li>
+                    <label for="type">Type</label>
+                    <select id="type">
+                        <option value="select"></option>
+                        <option value="option1">Option 1</option>
+                        <option value="option2">Option 2</option>
+                        </select>
+                </li>
+                <input type="button" value="Generate" style="float: left;">
+            </ul>
+        </form>
     
-  </body>
+        <!-- Column 2 -->
+        <form class="forms">
+            <ul>
+                <li>
+                    <label for="materialsCost">Cost of Materials</label>
+                    <input type="number" name ="materialsCost" step="0.01" maxlength="3" min="0.01" max="999">
+                </li>
+                <li>
+                    <label for="totalReturn">Total Return</label>
+                    <input type="number" name ="totalReturn" step="0.01" maxlength="3" min="0.01" max="999">
+                </li>
+                <li>
+                    <label for="profitMargin">Profit Margin</label>
+                    <input type="number" name ="profitMargin" step="0.01" maxlength="3" min="0.01" max="999">
+                </li>
+                <li>
+                    <label for="produced">Number Produced</label>
+                    <input type="number" name="produced" maxlength="3" min="0" max="999"
+                    oninput="javascript: 
+                    if (this.value.length > 3) this.value = this.value.slice(0, this.maxLength);">
+                </li>
+                <li>
+                    <label for="sold">Number Sold</label>
+                    <input type="number" name="sold" maxlength="3" min="0" max="999"
+                    oninput="javascript: 
+                    if (this.value.length > 3) this.value = this.value.slice(0, this.maxLength);">
+                </li>
+                <li>
+                    <label for="avgTime">Average Time Spent</label>
+                    <input type="number" name="avgBuildTime" maxlength="3" min="0" max="999"
+                    oninput="javascript: 
+                    if (this.value.length > 3) this.value = this.value.slice(0, this.maxLength);">
+                </li>
+                <li>
+                    <label for="totalTime">Total Time Spent</label>
+                    <input type="number" name="totalTime" maxlength="3" min="0" max="999"
+                    oninput="javascript: 
+                    if (this.value.length > 3) this.value = this.value.slice(0, this.maxLength);">
+                </li>
+                <input type="button" value="Reset" style="float: left;">
+            </ul>
+        </form>
+    </body>
 </html>
