@@ -1,8 +1,11 @@
 
-
-<link rel='stylesheet' href='stylesheets/style.css'>
-<h1><%= message %></h1>
-<% include  templates/header.ejs%>
-
-<h2><%= error.status %></h2>
-<pre><%= error.stack %></pre>
+<html>
+    <body id="grad1">
+        <link rel='stylesheet' href='stylesheets/style.css'>
+        <h1><%= message %></h1>
+        <% include  templates/header.ejs%>
+        
+        <h2><%= error.status %></h2>
+        <pre><%= error.stack %></pre>
+    </body>
+</html>

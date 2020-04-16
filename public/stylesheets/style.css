@@ -23,7 +23,15 @@
     --colorDarkGrey: rgb(80, 80, 80);
 
     --fullwidth: 100%;
-  }
+    }
+html{
+    height:100%;
+}
+#grad1 {
+    height: 100%;
+    background-color: rgb(138, 222, 243); /* For browsers that do not support gradients */
+    background-image: linear-gradient(to bottom right, rgb(255, 255, 255), rgb(157, 189, 219)); /* Standard syntax (must be last) */
+}
 a{
 	height: 14px;
     font-size: 14px;
@@ -50,8 +58,11 @@ h1{
 .forms{
     float: left;
 	max-width:200px;
-	margin:20px auto;
-	background:white;
+    margin:20px auto;
+    background:white;
+    /*
+    background:none;
+    */
 	border-radius:2px;
 	padding-left:20px;
 }
@@ -84,7 +95,10 @@ h1{
 	display: block;
 	float: left;
 	margin-top: -19px;
-	background: white;
+    background:white;
+    /*
+    background:none;
+    */
 	height: 14px;
 	padding: 2px 5px 2px 5px;
 	color: var(--colorGrey);
@@ -109,6 +123,10 @@ h1{
 	font-size: 15px;
 	padding: 0;
 	font-family: Georgia, "Times New Roman", Times, serif;
+    background:white;
+    /*
+    background:none;
+    */
 }
 .forms textarea{
 	resize:none;
