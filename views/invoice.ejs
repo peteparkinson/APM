@@ -3,13 +3,64 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+
+    <script type="text/javascript">
+        //auto expand textarea
+        function adjust_textarea(h) {
+            h.style.height = "25px";
+            h.style.height = (h.scrollHeight)+"px";
+        }
+    </script>
+
   </head>
   <body>
     <h1><%= title %></h1>
     <% include  templates/header.ejs%>
 
+    <!-- Column 1 -->
+    <form class="forms">
+        <h1> Projects to Invoice </h1>
+        <select  class="box" id="projects" name="projects" size="999">
+            <option value="Project 1">Project 1</option>
+            <option value="Project 2">Project 2</option>
+            <option value="Project 3">Project 3</option>
+            <option value="Project 4">Project 4</option>
+        </select>
+    </form>
 
-  
+    <!-- Column 2 -->
+    <form class="forms">
+        <h1> Preview Invoice </h1>
+        <ul>
+            <li style="border: none; margin-bottom: 5px;">
+                <label for="pi1">Eluna Mae Arts</label>
+            </li>
+            <li style="border: none; margin-bottom: 5px;">
+                <label for="pi2">Today's Date</label>
+            </li>
+            <li style="border: none; margin-bottom: 5px;">
+                <label for="pi3">Customer Name</label>
+            </li>
+            <li style="border: none; margin-bottom: 5px;">
+                <label for="pi4">Address</label>
+            </li>
+            <li style="border: none; margin-bottom: 5px;">
+                <label for="pi5">Project Name</label>
+            </li>
+            <li style="border: none; margin-bottom: 5px;">
+                <label for="pi6">Qty: 1</label>
+            </li>
+            <li style="border: none; margin-bottom: 5px;">
+                <label for="pi7">Cost: </label>
+            </li>
+            <li>z
+                <label for="notes">Notes</label>
+                <textarea name="notes" maxlength="300" style="height: 80px;"></textarea>
+            </li>
+            <input type="button" value="Submit" style="float: right;" >
+            
+        </ul>
+    </form>
     
   </body>
 </html>
