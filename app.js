@@ -5,25 +5,15 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var about = require('./routes/about');
 var materials = require('./routes/materials');
 var projects = require('./routes/projects');
-var editprojects = require('./routes/editprojects');
+var editProjects = require('./routes/editProjects');
 var customers = require('./routes/customers');
 var invoice = require('./routes/invoice');
 var reports = require('./routes/reports');
+var about = require('./routes/about');
+
 var app = express();
-
-
-/**********************************
- * this line lets you create a global variable.
- * can use JSON files
- * 
-    //app.locals.videodata = require('./videodata.json');
- *
- *********************************/
-app.locals.videodata = require('./videodata.json');
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -35,29 +25,29 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);                  // home page
-app.use('/about', about);                   // help page for the user
-app.use('/materials', materials);           // manage inventory levels
-app.use('/projects', projects);             // view projects only
-app.use('/editprojects', editprojects);     // create and edit projects
-app.use('/customers', customers);           // add, remove, edit, view customer data
-app.use('/invoice', invoice);               // print invoices
-app.use('/reports', reports);               // view profit / cost analysis, trends
+app.use('/', indexRouter);
+app.use('/materials', materials);
+app.use('/projects', projects);
+app.use('/editProjects', editProjects);
+app.use('/customers', customers);
+app.use('/invoice', invoice);
+app.use('/reports', reports);
+app.use('/about', about);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-    next(createError(404));
+  next(createError(404));
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-    // set locals, only providing error in development
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-    // render the error page
-    res.status(err.status || 500);
-    res.render('error');
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
 });
 
 module.exports = app;
