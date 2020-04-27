@@ -24,12 +24,12 @@
         -->
 
         <!-- Column 1 -->
-        <form class="forms">
+        <form class="forms" method="POST" action="/materials/submitted">
             <h1> Details </h1>
             <ul>
                 <li>
-                    <label for="material">Name</label>
-                    <input type="text" name="material" maxlength="30">
+                    <label for="name">Name</label>
+                    <input type="text" name="name" maxlength="30">
                 </li>
                 <li>
                     <!--
@@ -65,7 +65,8 @@
                         this will have consequences down the road
                         Also, check the reset button down below
                     -->
-                    <input type="button" value="Submit" >
+                    <input type="submit" value="Submit" >
+                    <input type="button" value="Clear" >
                 </li>
             </ul>
         </form>
@@ -84,9 +85,6 @@
                     <option value="material3">Material 3</option>
                     <option value="material4">Material 4</option>
                 </select>
-                <li>
-                    <input type="button" value="Clear" >
-                </li>
             </ul>
         </form>
         
