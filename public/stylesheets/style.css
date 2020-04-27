@@ -130,7 +130,8 @@ h1{
 .forms textarea{
 	resize:none;
 }
-.forms input[type="button"]{
+.forms input[type="button"],
+.forms input[type="submit"]{
 	background: var(--colorMain);
 	border: none;
 	padding: 10px 20px 10px 20px;
@@ -138,7 +139,8 @@ h1{
 	border-radius: 3px;
 	color: #fff;
 }
-.forms input[type="button"]:hover{
+.forms input[type="button"]:hover,
+.forms input[type="submit"]:hover{
 	background: var(--colorHover);
 	color:#fff;
 }
