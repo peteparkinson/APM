@@ -16,8 +16,6 @@ var methods = {
             console.log(err);
         }
     },
-
-
 }
 
 exports.method = methods;
