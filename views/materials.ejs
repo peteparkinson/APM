@@ -10,6 +10,18 @@
             h.style.height = "20px";
             h.style.height = (h.scrollHeight) + "px";
         }
+        
+        // filters the list of materials
+        // read more on this: https://codereview.stackexchange.com/questions/140420/filter-options-of-select-box-using-input-box-value
+        function filter(search) {
+            var select = document.getElementById("materialsList");
+            for (var i = 0; i < select.length; i++) {
+                var txt = select.options[i].text;
+                var include = txt.toLowerCase().startsWith(search.toLowerCase());
+                select.options[i].style.display = include ? 'list-item':'none';
+            }
+        }
+        
     </script>
 
 </head>
@@ -60,11 +72,6 @@
                 <textarea name="notes" onkeyup="adjust_textarea(this)"></textarea>
             </li>
             <li>
-                <!--
-                        Note, I changed this to "button" type instead of "submit"
-                        this will have consequences down the road
-                        Also, check the reset button down below
-                    -->
                 <input type="submit" value="Submit">
                 <input type="reset" value="Clear" />
             </li>
@@ -76,11 +83,11 @@
         <h1> Search </h1>
         <ul>
             <li>
-                <label for="filter">Filter</label>
-                <input type="text" name="filter" maxlength="30">
+                <label for="search">Filter</label>
+            <input type="text" id="search" maxlength="30" onkeyup="filter(this.value)">       
             </li>
             <!-- loops through all materials, lists in selection box -->
-            <select class="box" id="materials" name="materials" size="999" style="height: 260px">
+            <select class="box" id="materialsList" size="999" style="height: 260px">
                 <% allMaterials.materials.forEach(function(item){ %>
                 <option value="<%= item.name %>"> <%= item.name %> </option>
                 <% });%>
@@ -100,8 +107,6 @@
             </select>
         </ul>
     </form>
-
 </body>
 
 </html>
-
