@@ -8,7 +8,7 @@ var methods = {
         try {
             const parsed = JSON.parse(fileContents);
             parsed.materials.push(obj);
-            fs.writeFile(file, JSON.stringify(parsed), function(err){
+            fs.writeFile(file, JSON.stringify(parsed), function (err) {
                 if (err) throw err;
                 console.log('The "data to append" was appended to file!');
             });
@@ -16,10 +16,6 @@ var methods = {
             console.log(err);
         }
     },
-
-    testMe() {
-        console.log('I\'m working');
-    }
 
 
 }

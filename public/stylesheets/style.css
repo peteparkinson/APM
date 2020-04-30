@@ -31,22 +31,6 @@ html{
     background-color: rgb(138, 222, 243); /* For browsers that do not support gradients */
     background-image: linear-gradient(to bottom right, rgb(255, 255, 255), rgb(157, 189, 219)); /* Standard syntax (must be last) */
 }
-a{
-	height: 14px;
-    font-size: 14px;
-    font-family: Arial, Helvetica, sans-serif;
-    background: var(--colorMain);
-    border: none;
-    padding: 8px 12px;
-	border-bottom: 3px solid var(--colorBorder);
-	border-radius: 3px;
-	color: white;
-    text-decoration: none;
-}
-a:hover{
-	background: var(--colorHover);
-	color:white;
-}
 h1{
 	font-size: 50px;
 	display: block;
@@ -59,9 +43,6 @@ h1{
 	max-width:200px;
     margin:20px auto;
     background:white;
-    /*
-    background:none;
-    */
 	border-radius:2px;
 	padding-left:20px;
 }
@@ -95,9 +76,6 @@ h1{
 	float: left;
 	margin-top: -19px;
     background:white;
-    /*
-    background:none;
-    */
 	height: 14px;
 	padding: 2px 5px 2px 5px;
 	color: var(--colorGrey);
@@ -123,24 +101,28 @@ h1{
 	padding: 0;
 	font-family: Georgia, "Times New Roman", Times, serif;
     background:white;
-    /*
-    background:none;
-    */
 }
 .forms textarea{
 	resize:none;
 }
+a,
 .forms input[type="button"],
-.forms input[type="submit"]{
+.forms input[type="submit"],
+.forms input[type="reset"]{
 	background: var(--colorMain);
-	border: none;
-	padding: 10px 20px 10px 20px;
+    border: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+	padding: 10px 15px 10px 15px;
 	border-bottom: 3px solid var(--colorBorder);
 	border-radius: 3px;
-	color: #fff;
+    color: #fff;
+    text-decoration: none;
 }
+a:hover,
 .forms input[type="button"]:hover,
-.forms input[type="submit"]:hover{
+.forms input[type="submit"]:hover,
+.forms input[type="reset"]:hover{
 	background: var(--colorHover);
 	color:#fff;
 }

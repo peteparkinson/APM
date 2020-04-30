@@ -1,8 +1,11 @@
 var express = require('express');
 var router = express.Router();
 var fileControl = require('../modules/fileControl.js');
+var bodyParser = require('body-parser');
 
-router.use(express.urlencoded());
+router.use(express.urlencoded({extended: true}));
+router.use(bodyParser.urlencoded({extended: true}));
+router.use(bodyParser.json());
 
 // GET page ./materials
 router.get('/', function (req, res, next) {
