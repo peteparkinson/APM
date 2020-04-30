@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var fs = require('fs');
 
 var indexRouter = require('./routes/index');
 var materials = require('./routes/materials');
@@ -14,10 +15,6 @@ var reports = require('./routes/reports');
 var about = require('./routes/about');
 
 var app = express();
-
-
-//app.locals.allMaterials = require('./records/materials.json');
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
