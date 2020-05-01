@@ -1,16 +1,21 @@
 var express = require('express');
 var router = express.Router();
 var fileControl = require('../modules/fileControl.js');
+var fs = require('fs');
 var bodyParser = require('body-parser');
+var lstControl = require('../modules/listControl')
 
 router.use(express.urlencoded({extended: true}));
 router.use(bodyParser.urlencoded({extended: true}));
-router.use(bodyParser.json());
 
 // GET page ./materials
 router.get('/', function (req, res, next) {
+    var allMaterials = JSON.parse(fs.readFileSync('./records/materials.json', 'utf8'));
+    var types = lstControl.materialTypes;
     res.render('materials', {
         title: 'Manage Materials',
+        allMaterials,
+        types,
     });
 });
 
@@ -19,12 +24,11 @@ router.get('/', function (req, res, next) {
  * the 'addToFile' method tries to write the passed object to the passed path
  ***********************************/
 router.post('/submitted', function (req, res) {
-    var file = 'records/materials.json';
+    var file = './records/materials.json';
+    var obj = req.body;
+    obj.testAttribute = "test";
     fileControl.method.addToFile(req.body, file);
-    res.render('submitted', {
-        title: 'Art Projects Manager',
-    });
+    res.redirect('/materials');
 });
 
 module.exports = router;
-

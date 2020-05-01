@@ -17,7 +17,9 @@ var methods = {
         }
     },
 
-
+    demo: function(){
+        console.log('working');
+    }
 }
 
 exports.method = methods;
