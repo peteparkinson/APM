@@ -17,8 +17,21 @@ var methods = {
         }
     },
 
+    removeFromFile: function (obj, file){
+        console.log('connected');
+        const fileContents = fs.readFileSync(file, 'utf8');
+        try {
+            var json = JSON.parse(fileContents);
+            var materials = json.materials;
+            json.materials = materials.filter((item) => { return item.name !== obj.name });
+            fs.writeFileSync(file, JSON.stringify(json, null, 2));
+        } catch (err) {
+            console.log(err);
+        }
+    },
+
     demo: function(){
-        console.log('working');
+        console.log('Hello World');
     }
 }
 
