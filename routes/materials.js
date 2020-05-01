@@ -31,4 +31,14 @@ router.post('/submitted', function (req, res) {
     res.redirect('/materials');
 });
 
+/***********************************
+ * This section deletes a material, kept in 'req.body'.  
+ * the 'removeFromFile' method tries to remove the object from the file passed
+ ***********************************/
+router.post('/deleted', function (req, res) {
+    var file = './records/materials.json';
+    fileControl.method.removeFromFile(req.body, file);
+    res.redirect('/materials');
+});
+
 module.exports = router;
