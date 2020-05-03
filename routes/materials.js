@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var fileControl = require('../modules/fileControl.js');
 var fs = require('fs');
 var bodyParser = require('body-parser');
-var lstControl = require('../modules/listControl')
+var fileControl = require('../modules/fileControl.js');
+var listControl = require('../modules/listControl.js')
 
 router.use(express.urlencoded({extended: true}));
 router.use(bodyParser.urlencoded({extended: true}));
@@ -11,11 +11,13 @@ router.use(bodyParser.urlencoded({extended: true}));
 // GET page ./materials
 router.get('/', function (req, res, next) {
     var allMaterials = JSON.parse(fs.readFileSync('./records/materials.json', 'utf8'));
-    var types = lstControl.materialTypes;
+    var types = listControl.materialTypes;
+    var matStr = JSON.stringify(allMaterials);
     res.render('materials', {
         title: 'Manage Materials',
         allMaterials,
         types,
+        matStr,
     });
 });
 
@@ -25,8 +27,8 @@ router.get('/', function (req, res, next) {
  ***********************************/
 router.post('/submitted', function (req, res) {
     var file = './records/materials.json';
-    var obj = req.body;
-    obj.testAttribute = "test";
+    req.body.serial = fileControl.method.getSerial('./records/materials.json');
+    req.body.relProjects = [];
     fileControl.method.addToFile(req.body, file);
     res.redirect('/materials');
 });
@@ -37,7 +39,7 @@ router.post('/submitted', function (req, res) {
  ***********************************/
 router.post('/deleted', function (req, res) {
     var file = './records/materials.json';
-    fileControl.method.removeFromFile(req.body, file);
+    fileControl.method.removeFromFile(req.body.box1, file);
     res.redirect('/materials');
 });
 
