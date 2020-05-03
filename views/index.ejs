@@ -3,14 +3,26 @@
     <head>
         <title><%= title %></title>
         <link rel='stylesheet' href='/stylesheets/style.css' />
-        
+        <script>
+            function test(){
+                for(let i = 100; i <= 104; i++){
+                    console.log('wei9rd')
+                }
+            }
+        </script>
+
     </head>
     <body id="grad1">
         <h1 style="white-space: nowrap;"> <%= title %> </h1>
 
         <% include  templates/header.ejs%>
 
-        <div></div>
+        <br>
+        <br>
+
+        <form class="forms">
+                <input type="button" value="Test" onclick="test()">
+        </form>
 
         <!-- 
             There are recurring elements in this project, to which certain comments will apply
