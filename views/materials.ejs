@@ -5,20 +5,24 @@
     <link rel='stylesheet' href='stylesheets/style.css'>
 
     <script type="text/javascript">
+
+        const allMatStr = JSON.parse('<%- matStr %>');
+
         //auto expand textarea
         function adjust_textarea(h) {
             h.style.height = "20px";
             h.style.height = (h.scrollHeight) + "px";
         }
-        
+
         // filters the list of materials
         // read more on this: https://codereview.stackexchange.com/questions/140420/filter-options-of-select-box-using-input-box-value
         function filter(search) {
             var select = document.getElementById("materialsList");
+            clearList(document.getElementById("projectsList"));
             for (var i = 0; i < select.length; i++) {
                 var txt = select.options[i].text;
                 var include = txt.toLowerCase().startsWith(search.toLowerCase());
-                select.options[i].style.display = include ? 'list-item':'none';
+                select.options[i].style.display = include ? 'list-item' : 'none';
             }
         }
 
@@ -43,9 +47,83 @@
                 }
             }
         }
-        
-    </script>
 
+        //checks for duplicate entry (selected edit, and manually typed)
+        //duplicates currently overwrite existing materials
+        function checkDupes() {
+            var list = document.getElementById('materialsList');
+            var check = document.getElementById('matName').value;
+            for (let i = 0; i < list.length; i++) {
+                if (list[i].value == check) {
+                    return confirm('Duplicate found, please confirm overwrite, or rename');
+                }
+            }
+            return true;
+        }
+
+        //returns false if no material is selected, or user hits cancel on 'confirm' dialog
+        function checkSelection() {
+            var list = document.getElementById('materialsList')
+            var index = list.selectedIndex;
+            if (index == -1) {
+                return false;
+            } else {
+                return confirm('Are you sure you want to delete \"' + list.value + '\"?');
+            }
+        }
+
+        //populates form 1 with selected material data
+        function showDetails() {
+            var selection = document.getElementById('materialsList').value;
+            allMatStr.objects.forEach(e => {
+                if (selection == e.name) {
+                    document.getElementById("matName").value = e.name;
+                    document.getElementById("matType").value = e.materialType;
+                    document.getElementById("matQty").value = e.qty;
+                    document.getElementById("matCost").value = e.cost;
+                    document.getElementById("matECost").value = e.extcost;
+                    document.getElementById("matNote").value = e.notes;
+                }
+            });
+            showRelProjects();
+        }
+
+        //populates "related projects" select
+        function showRelProjects(){
+            var selection = document.getElementById('materialsList').value;
+            var proList = document.getElementById("projectsList");
+            //clear the list before added new options
+            clearList(proList);
+            allMatStr.objects.forEach(e => {
+                if (selection == e.name) {
+                    for(let i = 0; i < e.relProjects.length; i++){
+                        proList.options[proList.options.length] = new Option(e.relProjects[i], i);
+                    }
+                    return;
+                }
+            });
+
+        }
+
+        function clearList(sel){
+            var i, length = sel.options.length;
+            for(i = length; i >= 0; i--) {
+                sel.remove(i);
+            }
+        }
+
+        function deSelect(list) {
+            document.getElementById(list).selectedIndex = -1;
+        }
+
+        //clear all forms
+        function clearForms(){
+            deSelect('materialsList');
+            deSelect('projectsList');
+            clearList(document.getElementById("projectsList"));
+            //clearList(document.getElementById("materialsList"));
+        }
+    </script>
 </head>
 
 <body>
@@ -65,81 +143,76 @@
         <ul>
             <li>
                 <label for="name">Name</label>
-                <input type="text" name="name" maxlength="30">
+                <input id="matName" type="text" name="name" maxlength="30">
             </li>
             <li>
                 <!-- this select isn't being captured on post-->
                 <label for="type">Type</label>
-                    <select name="type" id="type" >
-                        <% for(let i = 0; i < types.length; i++) { %>
-                            <option value="<%= types[i] %>"><%= types[i] %></option>
-                        <% } %>
-                  </select>
+                <select id="matType" name="materialType" id="type">
+                    <% for(let i = 0; i < types.length; i++) { %>
+                    <option value="<%= types[i] %>"><%= types[i] %></option>
+                    <% } %>
+                </select>
             </li>
             <li>
                 <!--
                         maxlength doesn't work for number fields, so the script in those fields
                         limits input to defined maxlength
                     -->
-                <label for="qty">Quantity in stock</label>
-                <input type="number" name="qty" maxlength="3" min="0" max="999" oninput="javascript: 
-                    if (this.value.length > 3) this.value = this.value.slice(0, this.maxLength);">
-            </li>
-            <li>
-                <label for="qtyUsed">Quantity in use</label>
-                <input type="number" name="qtyUsed" maxlength="3" min="0" max="999" oninput="javascript: 
+                <label for="qty">Quantity</label>
+                <input id="matQty" type="number" name="qty" maxlength="3" min="0" max="999" oninput="javascript: 
                     if (this.value.length > 3) this.value = this.value.slice(0, this.maxLength);">
             </li>
             <li>
                 <label for="cost">Cost</label>
-                <input type="number" name="cost" step="0.01" maxlength="3" min="0.01" max="999">
+                <input id="matCost" type="number" name="cost" step="0.01" maxlength="3" min="0.01" max="999">
             </li>
             <li>
                 <label for="extcost">Extended Cost</label>
-                <input type="number" name="extcost" step="0.01" maxlength="3" min="0.01" max="999">
+                <input id="matECost" type="number" name="extcost" step="0.01" maxlength="3" min="0.01" max="999">
             </li>
             <li>
                 <label for="notes">Notes</label>
-                <textarea name="notes" onkeyup="adjust_textarea(this)"></textarea>
+                <textarea id="matNote" name="notes" onkeyup="adjust_textarea(this)"></textarea>
             </li>
             <li>
-                <input type="submit" value="Submit">
-                <input type="reset" value="Clear" />
+                <input type="submit" value="Submit" onclick="return checkDupes()">
+                <input type="reset" value="Clear" onclick="clearForms()">
             </li>
         </ul>
     </form>
 
     <!-- Column 2 -->
-    <form class="forms">
+    <form class="forms" method="POST" action="/materials/deleted">
         <h1> Search </h1>
         <ul>
             <li>
                 <label for="search">Filter</label>
-            <input type="text" id="search" maxlength="30" onkeyup="filter(this.value)">       
+                <input type="text" id="search" maxlength="30" onkeyup="filter(this.value)">
             </li>
             <!-- loops through all materials, lists in selection box -->
-            <select class="box" id="materialsList" size="999" style="height: 260px">
-                <% allMaterials.materials.forEach(function(item){ %>
+            <select class="box" name="box1" id="materialsList" onclick="showDetails()" style="height: 260px"
+                size="999">
+                <% allMaterials.objects.forEach(function(item){ %>
                 <option value="<%= item.name %>"> <%= item.name %> </option>
                 <% });%>
             </select>
+            <li>
+                <input type="submit" value="Delete Material" onclick="return checkSelection()">
+            </li>
         </ul>
     </form>
-
-    <script> sortList("materialsList") </script>
 
     <!-- Column 3 -->
     <form class="forms">
         <h1> Related Projects </h1>
         <ul>
-            <select class="box" id="projects" name="projects" size="999">
-                <option value="project1">Project 1</option>
-                <option value="project2">Project 2</option>
-                <option value="project3">Project 3</option>
-                <option value="project4">Project 4</option>
+            <select class="box" id="projectsList" name="projects" size="999">
             </select>
         </ul>
     </form>
+
+    <script> sortList("materialsList"); sortList("projectsList");</script>
 </body>
 
 </html>

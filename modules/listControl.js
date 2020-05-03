@@ -28,6 +28,14 @@ const projectTypes = [
     "Other"
 ];
 
+var methods = {
 
+    demo: function(){
+        console.log('Hello Wulrd');
+    }
+
+}
+
+exports.method = methods;
 exports.materialTypes = materialTypes;
 exports.projectTypes = projectTypes;
