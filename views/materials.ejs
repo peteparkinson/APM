@@ -24,6 +24,7 @@
                 var include = txt.toLowerCase().startsWith(search.toLowerCase());
                 select.options[i].style.display = include ? 'list-item' : 'none';
             }
+            document.getElementById('materialsList').selectedIndex = -1;
         }
 
         //sorts a list
@@ -112,14 +113,11 @@
             }
         }
 
-        function deSelect(list) {
-            document.getElementById(list).selectedIndex = -1;
-        }
 
         //clear all forms
         function clearForms(){
-            deSelect('materialsList');
-            deSelect('projectsList');
+            document.getElementById('materialsList').selectedIndex = -1;
+            document.getElementById('projectsList').selectedIndex = -1;
             clearList(document.getElementById("projectsList"));
             //clearList(document.getElementById("materialsList"));
         }
@@ -177,7 +175,7 @@
             </li>
             <li>
                 <input type="submit" value="Submit" onclick="return checkDupes()">
-                <input type="reset" value="Clear" onclick="clearForms()">
+                <input type="reset" value="Clear" onclick="clearForms()" style="float: right;">
             </li>
         </ul>
     </form>
@@ -216,3 +214,5 @@
 </body>
 
 </html>
+
+

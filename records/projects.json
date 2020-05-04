@@ -1,7 +1,46 @@
 {
     "objectName": "projects",
-    "objects": [
-        {},
-        {}
+    "objects": 
+    [
+        {
+            "name": "project 2",
+            "type": "Shadow Box",
+            "customer": "Mary",
+            "notes": "notes here",
+            "serial": "1001",
+            "status": "open",
+            "hours": "2",
+            "charge": "90",
+            "relMaterials": []
+        },
+        {
+            "name": "blargatha",
+            "type": "Shadow Box",
+            "customer": "",
+            "notes": "project1",
+            "serial": "1000",
+            "status": "open",
+            "hours": "2",
+            "charge": "90",
+            "relMaterials": 
+            [
+                "test",
+                "test1",
+                "test2"
+            ]
+        },
+        {
+            "name": "whistling willows",
+            "type": "Shadow Box",
+            "customer": "",
+            "notes": "blarhg",
+            "serial": "1002",
+            "status": "open",
+            "hours": "2",
+            "charge": "90",
+            "relMaterials": []
+        }
     ]
 }
+
+

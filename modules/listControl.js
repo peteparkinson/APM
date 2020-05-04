@@ -19,19 +19,19 @@ const materialTypes = [
 
 const projectTypes = [
     "",
-    "Shadow Box",
-    "Wood Burning",
-    "Print",
     "Cross Stitch",
-    "Painting",
     "Jewelry",
-    "Other"
+    "Other",
+    "Painting",
+    "Print",
+    "Shadow Box",
+    "Wood Burning"
 ];
 
 var methods = {
 
     demo: function(){
-        console.log('Hello Wulrd');
+        console.log('list control connected');
     }
 
 }
