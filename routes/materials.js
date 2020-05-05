@@ -39,6 +39,7 @@ router.post('/submitted', function (req, res) {
  ***********************************/
 router.post('/deleted', function (req, res) {
     var file = './records/materials.json';
+    console.log(req.body.box1)
     fileControl.method.removeFromFile(req.body.box1, file);
     res.redirect('/materials');
 });

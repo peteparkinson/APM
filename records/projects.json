@@ -6,7 +6,7 @@
             "type": "Shadow Box",
             "customer": "Mary",
             "notes": "notes here",
-            "serial": "1001",
+            "serial": 1001,
             "status": "open",
             "hours": "2",
             "charge": "90",
@@ -17,29 +17,59 @@
             "type": "Shadow Box",
             "customer": "Mary",
             "notes": "notes here",
-            "serial": "1001",
+            "serial": 1004,
             "status": "open",
             "hours": "2",
             "charge": "90",
-            "relMaterials": 
-            [
-                "mat1", 
+            "relMaterials": [
+                "mat1",
                 "material 2",
                 "final material",
                 "ok now seriously"
             ]
-
         },
         {
             "name": "whistling willows",
             "type": "Shadow Box",
             "customer": "",
             "notes": "blarhg",
-            "serial": "1002",
+            "serial": 1002,
             "status": "open",
             "hours": "2",
             "charge": "90",
             "relMaterials": []
+        },
+        {
+            "name": "asdfa aaa",
+            "type": "Cross Stitch",
+            "customer": "john",
+            "notes": "asdf",
+            "relMaterials": [
+                "delete me",
+                "delete me",
+                "delete me",
+                "delete me",
+                "delete me"
+            ],
+            "serial": 1003,
+            "status": "open",
+            "hours": "0",
+            "charge": "0"
+        },
+        {
+            "name": "serial should be 1005",
+            "type": "Cross Stitch",
+            "customer": "mary",
+            "notes": "asdf",
+            "relMaterials": [
+                "Frame 10x12",
+                "Frame 10x12",
+                "Frame 10x12"
+            ],
+            "serial": 1005,
+            "status": "open",
+            "hours": "0",
+            "charge": "0"
         }
     ]
 }

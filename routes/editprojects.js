@@ -29,17 +29,14 @@ router.get('/', function (req, res, next) {
 
 //on post from edit projects page
 router.post('/submitted', function (req, res) {
-    console.log(req.body)
+    console.log(req.body.relMaterials);
 
 
-    /*
     req.body.serial = fileControl.method.getSerial(projectsPath);
     req.body.status = "open";
     req.body.hours = "0";
     req.body.charge = "0";
-    req.body.relMaterials = [];
     fileControl.method.addToFile(req.body, projectsPath);
-    */
     res.redirect('/editprojects');
 });
 

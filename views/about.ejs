@@ -12,7 +12,7 @@
 
     <!-- Column 1 -->
     <form class="forms" id="form1" method="POST" action="/editprojects/deleted">
-        <div id="row1"> 
+        <div id="row1">
             <div id="leftDiv">
                 <h1> Details </h1>
                 <ul>
@@ -48,7 +48,8 @@
                 </ul>
             </div>
 
-            <div id="rightDiv">
+            <!-- Column 2 -->
+            <div id="centerDiv">
                 <h1> Materials Used </h1>
                 <ul>
                     <select class="box" id="usingList" name="materials" size="999" style="height: 358px">
@@ -59,12 +60,24 @@
                     <input type="button" value="Remove -->" style="float: right;" onclick="">
                 </ul>
             </div>
+
+            <!-- Column 3 -->
+            <div id="rightDiv">
+                <h1> Choose Materials </h1>
+                <ul>
+                    <li>
+                        <label for="search">Filter</label>
+                        <input type="text" id="search" maxlength="30" onkeyup="filter(this.value)">
+                    </li>
+                    <select class="box" name="box1" id="materialsList" style="height: 303px" size="999">
+                    </select>
+                    <input type="button" value="<-- Add" style="float: left;" onclick="addMat()">
+                </ul>
+            </div>
         </div>
     </form>
 
-    <!-- Column 2 -->
 
-    <!-- Column 3 -->
 
 
 </body>

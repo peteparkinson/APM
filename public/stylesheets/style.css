@@ -40,7 +40,9 @@ html{
     float: left;
     flex-direction:column;
 }
+#centerDiv,
 #rightDiv{
+    padding-left: 20px;
     float: left;
     flex-direction:column;
 }
