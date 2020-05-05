@@ -14,10 +14,6 @@
             h.style.height = (h.scrollHeight) + "px";
         }
 
-        function showDetails() {
-            console.log('show details');
-        }
-
         //populates form 1 with selected material data
         function showDetails() {
             var selection = document.getElementById('projectsList').value;
@@ -25,14 +21,15 @@
                 if (selection == e.name) {
                     document.getElementById("name").value = e.name;
                     document.getElementById("notes").value = e.notes;
-                    //TODO
                     document.getElementById("proType").value = e.type;
+                    //TODO
                     document.getElementById("customer").value = e.customer;
 
 
                 }
             });
             showRelMaterials();
+            sortList("usingList"); 
         }
 
         //populates "materials used" select
@@ -93,16 +90,20 @@
         }
 
         function addMat() {
-            var selection = document.getElementById('materialsList').value;
+            var doc = document.getElementById('materialsList');
+            var selection = doc.value;
+            if(doc.selectedIndex == -1){
+                return;
+            }
             var usingList = document.getElementById('usingList');
             var option = document.createElement("option");
             option.text = selection;
             usingList.add(option);
         }
 
-        function removeMat(){
+        function removeMat() {
             var sel = document.getElementById('usingList');
-            if(sel.selectedIndex == -1){
+            if (sel.selectedIndex == -1) {
                 return;
             }
             sel.remove(sel.selectedIndex);
@@ -110,11 +111,26 @@
         }
 
         //post 2 forms on submit
-        submitForms = function(){
-            document.getElementById("form1").submit();
+        submitForms = function () {
+            //document.getElementById("form1").submit();
             document.getElementById("form2").submit();
         }
 
+        clearForms = function () {
+            document.getElementById("form1").reset();
+            clearList(document.getElementById('usingList'));
+        }
+
+        //returns false if no material is selected, or user hits cancel on 'confirm' dialog
+        function checkSelection() {
+            var list = document.getElementById('projectsList')
+            var index = list.selectedIndex;
+            if (index == -1) {
+                return false;
+            } else {
+                return confirm('Are you sure you want to delete \"' + list.value + '\"?');
+            }
+        }
     </script>
 
 </head>
@@ -124,8 +140,8 @@
     <h1><%= title %></h1>
     <% include  templates/header.ejs%>
 
-    <!-- Column 1 -->
-    <form class="forms" id="form1" method="POST" action="/editprojects/submitted">
+   <!-- Column 1 -->
+    <form class="forms" id="form1" method="POST" action="/editprojects/deleted">
         <h1> Details </h1>
         <ul>
             <li>
@@ -155,24 +171,26 @@
                 <textarea id="notes" maxlength="300" onkeyup="adjust_textarea(this)"></textarea>
             </li>
             <h1> Open Projects </h1>
-            <select class="box" name="projects" id="projectsList" onclick="showDetails()" style="height: 105px" size="999">
+            <select class="box" name="projects" id="projectsList" onclick="showDetails()" style="height: 105px"
+                size="999">
                 <% allProjects.objects.forEach(function(item){ %>
                 <option value="<%= item.name %>"> <%= item.name %> </option>
                 <% });%>
             </select>
-            <input type="button" value="Submit" onclick="submitForms()">
-            <input type="reset" value="Clear" style="float: right;">
+            <input type="submit" value="Delete Project" onclick="return checkSelection()">
+            <input type="button" value="Clear" onclick="clearForms()" style="float: right">
         </ul>
     </form>
 
     <!-- Column 2 -->
-    <form class="forms" id="form2">
+    <form class="forms" id="form2" method="POST" action="/editprojects/submitted">
         <h1> Materials Used </h1>
         <ul>
             <select class="box" id="usingList" name="materials" size="999" style="height: 358px">
             </select>
         </ul>
         <ul>
+            <input type="button" value="Save" onclick="submitForms()">
             <input type="button" value="Remove -->" style="float: right;" onclick="removeMat()">
         </ul>
     </form>
@@ -192,7 +210,7 @@
             </select>
             <input type="button" value="<-- Add" style="float: left;" onclick="addMat()">
         </ul>
-    </form>
+    </form> 
 
     <script>
         sortList("materialsList");
@@ -203,5 +221,3 @@
 </body>
 
 </html>
-
-

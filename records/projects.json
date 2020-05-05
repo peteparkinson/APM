@@ -1,7 +1,6 @@
 {
     "objectName": "projects",
-    "objects": 
-    [
+    "objects": [
         {
             "name": "project 2",
             "type": "Shadow Box",
@@ -16,18 +15,20 @@
         {
             "name": "blargatha",
             "type": "Shadow Box",
-            "customer": "",
-            "notes": "project1",
-            "serial": "1000",
+            "customer": "Mary",
+            "notes": "notes here",
+            "serial": "1001",
             "status": "open",
             "hours": "2",
             "charge": "90",
             "relMaterials": 
             [
-                "test",
-                "test1",
-                "test2"
+                "mat1", 
+                "material 2",
+                "final material",
+                "ok now seriously"
             ]
+
         },
         {
             "name": "whistling willows",
@@ -42,5 +43,3 @@
         }
     ]
 }
-
-

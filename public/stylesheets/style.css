@@ -31,6 +31,19 @@ html{
     background-color: rgb(138, 222, 243); /* For browsers that do not support gradients */
     background-image: linear-gradient(to bottom right, rgb(255, 255, 255), rgb(157, 189, 219)); /* Standard syntax (must be last) */
 }
+#row1{
+    display:flex;
+    flex-direction:row;
+    justify-content: left;
+}
+#leftDiv{
+    float: left;
+    flex-direction:column;
+}
+#rightDiv{
+    float: left;
+    flex-direction:column;
+}
 h1{
 	font-size: 50px;
 	display: block;
