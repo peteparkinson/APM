@@ -126,11 +126,11 @@
             }
         }
 
-        function selectHack(){
+        function selectHack() {
             var ls = document.getElementById('usingList');
-            for (let i = 0; i < ls.options.length; i++) { 
-                ls.options[i].selected = true; 
-            } 
+            for (let i = 0; i < ls.options.length; i++) {
+                ls.options[i].selected = true;
+            }
         }
     </script>
 
@@ -151,7 +151,7 @@
                 <ul>
                     <li>
                         <label for="name">Name</label>
-                        <input type="text" id="name" name ="name" maxlength="30">
+                        <input type="text" id="name" name="name" maxlength="30">
                     </li>
                     <li>
                         <label for="projectsType">Type</label>
@@ -182,7 +182,8 @@
                         <option value="<%= item.name %>"> <%= item.name %> </option>
                         <% });%>
                     </select>
-                    <input type="submit" value="Delete Project" onclick="return checkSelection()" formaction="/editprojects/deleted">
+                    <input type="submit" value="Delete Project" onclick="return checkSelection()"
+                        formaction="/editprojects/deleted">
                     <input type="button" value="Clear" onclick="clearForms()" style="float: right">
                 </ul>
 
@@ -192,7 +193,8 @@
             <div id="centerDiv">
                 <h1> Materials Used </h1>
                 <ul>
-                    <select class="box" id="usingList" name="relMaterials" size="999" style="height: 358px" multiple="multiple">
+                    <select class="box" id="usingList" name="relMaterials" size="999" style="height: 358px"
+                        multiple="multiple">
                     </select>
                 </ul>
                 <ul>
@@ -201,22 +203,22 @@
                 </ul>
             </div>
 
-            <!-- Column 3 -->
-            <div id="rightDiv">
-                <h1> Choose Materials </h1>
-                <ul>
-                    <li>
-                        <label for="search">Filter</label>
-                        <input type="text" id="search" maxlength="30" onkeyup="filter(this.value)">
-                    </li>
-                    <select class="box" id="materialsList" style="height: 303px" size="999">
-                        <% allMaterials.objects.forEach(function(item){ %>
-                        <option value="<%= item.name %>"> <%= item.name %> </option>
-                        <% });%>
-                    </select>
-                    <input type="button" value="<-- Add" style="float: left;" onclick="addMat()">
-                </ul>
-            </div>
+    </form>
+    <form class="forms" style="margin-top: 0px;">
+        <!-- Column 3 -->
+            <h1> Choose Materials </h1>
+            <ul>
+                <li>
+                    <label for="search">Filter</label>
+                    <input type="text" id="search" maxlength="30" onkeyup="filter(this.value)">
+                </li>
+                <select class="box" id="materialsList" style="height: 303px" size="999">
+                    <% allMaterials.objects.forEach(function(item){ %>
+                    <option value="<%= item.name %>"> <%= item.name %> </option>
+                    <% });%>
+                </select>
+                <input type="button" value="<-- Add" style="float: left;" onclick="addMat()">
+            </ul>
         </div>
     </form>
 
