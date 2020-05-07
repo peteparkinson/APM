@@ -33,15 +33,18 @@
         }
 
         //populates "materials used" select
+
+        //TODO if there's only 1 related material, the select displays 1 character per line
         function showRelMaterials() {
             var selection = document.getElementById('projectsList').value;
             var matList = document.getElementById("usingList");
             //clear the list before added new options
             clearList(matList);
+
             allProStr.objects.forEach(e => {
                 if (selection == e.name) {
                     for (let i = 0; i < e.relMaterials.length; i++) {
-                        matList.options[matList.options.length] = new Option(e.relMaterials[i], i);
+                        matList.options[matList.options.length] = new Option(e.relMaterials[i]);
                     }
                     return;
                 }

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title><%= title %></title>
     <link rel='stylesheet' href='stylesheets/style.css' />
 
@@ -8,62 +9,65 @@
         //auto expand textarea
         function adjust_textarea(h) {
             h.style.height = "20px";
-            h.style.height = (h.scrollHeight)+"px";
+            h.style.height = (h.scrollHeight) + "px";
         }
     </script>
 
-  </head>
-  <body>
+</head>
+
+<body>
 
     <h1><%= title %></h1>
     <% include  templates/header.ejs%>
-  
-        <!-- Column 1 -->
-        <form class="forms">
-            <br> 
-            <br>
-            <ul>
-                <select class="box" id="customers" name="customers" size="999" style="height: 358px">
-                    <option value="customer1">Customer 1</option>
-                    <option value="customer2">Customer 1</option>
-                    <option value="customer3">Customer 3</option>
-                    <option value="customer4">Customer 4</option>
-                </select>
-                <input type="button" value="New" style="margin-right: 20px">
-                <input type="button" value="Delete" >
-            </ul>
-        </form>
 
-        <!-- Column 2 -->
-        <form class="forms">
-            <h1> Details </h1>
-            <ul>
-                <li>
-                    <label for="name">Name</label>
-                    <input type="text" name ="name" maxlength="30">
-                </li>
-                <li>
-                    <label for="address">Address</label>
-                    <input type="text" name ="address" maxlength="30">
-                </li>
-                <li>
-                    <label for="phone">Phone</label>
-                    <input type="text" name ="phone" maxlength="12">
-                </li>
-                <h1> Associated Projects </h1>
-                <select  class="box" id="projects" name="projects" size="999" style="height: 105px">
-                    <option value="Project 1">Project 1</option>
-                    <option value="Project 2">Project 2</option>
-                    <option value="Project 3">Project 3</option>
-                    <option value="Project 4">Project 4</option>
-                </select>                
-                <li>
-                    <label for="notes">Notes</label>
-                    <textarea name="notes" maxlength="300" onkeyup="adjust_textarea(this)"></textarea>
-                </li>
-                <input type="button" value="Edit" style="margin-right: 40px">
-                <input type="button" value="Submit" >
-            </ul>
-        </form>
-  </body>
+    <!-- Column 1 -->
+    <form class="forms" method="POST">
+    <div id="row1">
+    <div id="leftDiv">
+        <br>
+        <br>
+        <ul>
+            <select class="box" name="customers" id="customers" size="999" style="height: 358px">
+                <% allCustomers.objects.forEach(function(item){ %>
+                <option value="<%= item.name %>"> <%= item.name %> </option>
+                <% });%>
+            </select>
+        </ul>
+    </div>
+
+            <!-- Column 2 -->
+    <div id="centerDiv">
+        <h1> Details </h1>
+        <ul>
+            <li>
+                <label for="name">Name</label>
+                <input type="text" name="name" maxlength="30">
+            </li>
+            <li>
+                <label for="address">Address</label>
+                <input type="text" name="address" maxlength="30">
+            </li>
+            <li>
+                <label for="phone">Phone</label>
+                <input type="text" name="phone" maxlength="12">
+            </li>
+            <h1> Associated Projects </h1>
+            <select class="box" id="projects" name="projects" size="999" style="height: 105px">
+                <option value="Project 1">Project 1</option>
+                <option value="Project 2">Project 2</option>
+                <option value="Project 3">Project 3</option>
+                <option value="Project 4">Project 4</option>
+            </select>
+            <li>
+                <label for="notes">Notes</label>
+                <textarea name="notes" maxlength="300" onkeyup="adjust_textarea(this)"></textarea>
+            </li>
+            <input type="submit" value="Delete" formaction="/customers/deleted">
+            <input type="submit" value="Submit" style="float: right;" formaction="/customers/submitted">
+        </ul>
+    </div>
+    </div>
+    </form>
+</body>
+
 </html>
