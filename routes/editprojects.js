@@ -32,6 +32,16 @@ router.get('/', function (req, res, next) {
 
 //on post from edit projects page
 router.post('/submitted', function (req, res) {
+    if(req.body.relMaterials){
+        //interpret relMaterials as an array if there's only 1 elemet
+        if(!Array.isArray(req.body.relMaterials)){
+            req.body.relMaterials = [req.body.relMaterials];
+        } 
+        //TODO       
+        //updates material files
+        //updateMaterials(req.body)
+    }
+
     req.body.serial = fileControl.method.getSerial(projectsPath);
     req.body.status = "open";
     req.body.hours = "0";
@@ -49,5 +59,3 @@ router.post('/deleted', function (req, res) {
 });
 
 module.exports = router;
-
-

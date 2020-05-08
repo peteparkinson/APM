@@ -28,7 +28,12 @@ router.get('/', function (req, res, next) {
 router.post('/submitted', function (req, res) {
     var file = './records/materials.json';
     req.body.serial = fileControl.method.getSerial('./records/materials.json');
-    req.body.relProjects = [];
+    /*
+    if(!req.body.relProjects){
+        req.body.relProjects = [];
+    }
+    */
+    console.log(req.body.relProjects);
     fileControl.method.addToFile(req.body, file);
     res.redirect('/materials');
 });

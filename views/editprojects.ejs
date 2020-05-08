@@ -33,8 +33,6 @@
         }
 
         //populates "materials used" select
-
-        //TODO if there's only 1 related material, the select displays 1 character per line
         function showRelMaterials() {
             var selection = document.getElementById('projectsList').value;
             var matList = document.getElementById("usingList");
@@ -42,7 +40,7 @@
             clearList(matList);
 
             allProStr.objects.forEach(e => {
-                if (selection == e.name) {
+                if (selection == e.name && e.relMaterials) {
                     for (let i = 0; i < e.relMaterials.length; i++) {
                         matList.options[matList.options.length] = new Option(e.relMaterials[i]);
                     }
@@ -179,8 +177,8 @@
                         <textarea id="notes" name="notes" maxlength="300" onkeyup="adjust_textarea(this)"></textarea>
                     </li>
                     <h1> Open Projects </h1>
-                    <select class="box" name="projects" id="projectsList" onclick="showDetails()" style="height: 105px"
-                        size="999">
+                    <select class="box" name="projects" id="projectsList" onclick="showDetails()"
+                        onkeyup="showDetails()" style="height: 105px" size="999">
                         <% allProjects.objects.forEach(function(item){ %>
                         <option value="<%= item.name %>"> <%= item.name %> </option>
                         <% });%>
@@ -209,19 +207,19 @@
     </form>
     <form class="forms" style="margin-top: 0px;">
         <!-- Column 3 -->
-            <h1> Choose Materials </h1>
-            <ul>
-                <li>
-                    <label for="search">Filter</label>
-                    <input type="text" id="search" maxlength="30" onkeyup="filter(this.value)">
-                </li>
-                <select class="box" id="materialsList" style="height: 303px" size="999">
-                    <% allMaterials.objects.forEach(function(item){ %>
-                    <option value="<%= item.name %>"> <%= item.name %> </option>
-                    <% });%>
-                </select>
-                <input type="button" value="<-- Add" style="float: left;" onclick="addMat()">
-            </ul>
+        <h1> Choose Materials </h1>
+        <ul>
+            <li>
+                <label for="search">Filter</label>
+                <input type="text" id="search" maxlength="30" onkeyup="filter(this.value)">
+            </li>
+            <select class="box" id="materialsList" style="height: 303px" size="999">
+                <% allMaterials.objects.forEach(function(item){ %>
+                <option value="<%= item.name %>"> <%= item.name %> </option>
+                <% });%>
+            </select>
+            <input type="button" value="<-- Add" style="float: left;" onclick="addMat()">
+        </ul>
         </div>
     </form>
 
