@@ -28,11 +28,15 @@ router.get('/', function (req, res, next) {
 router.post('/submitted', function (req, res) {
     var file = './records/materials.json';
     req.body.serial = fileControl.method.getSerial('./records/materials.json');
-    /*
-    if(!req.body.relProjects){
+    
+    if(req.body.relProjects){
+        //interpret relProjects as an array if there's only 1 elemet
+        if(!Array.isArray(req.body.relProjects)){
+            req.body.relProjects = [req.body.relProjects];
+        } 
+    } else {
         req.body.relProjects = [];
     }
-    */
     console.log(req.body.relProjects);
     fileControl.method.addToFile(req.body, file);
     res.redirect('/materials');

@@ -49,17 +49,22 @@
             }
         }
 
-        //checks for duplicate entry (selected edit, and manually typed)
+        //checks if the user submits a material and its name already exists on file
         //duplicates currently overwrite existing materials
         function checkDupes() {
             var list = document.getElementById('materialsList');
             var check = document.getElementById('matName').value;
             for (let i = 0; i < list.length; i++) {
                 if (list[i].value == check) {
-                    return confirm('Duplicate found, please confirm overwrite, or rename');
+                    if (confirm('Duplicate found, please confirm overwrite, or rename')) {
+                        selectHack();
+                        return TRUE;
+                    } else { 
+                        return FALSE
+                    }
                 }
             }
-            return true;
+            return TRUE;
         }
 
         //returns false if no material is selected, or user hits cancel on 'confirm' dialog
@@ -150,81 +155,79 @@
 
     <!-- Column 1 -->
     <form class="forms" method="POST">
-    <div id="row1">
-    <div id="leftDiv">
-        <h1> Details </h1>
-            <li>
-                <label for="name">Name</label>
-                <input id="matName" type="text" name="name" maxlength="30">
-            </li>
-            <li>
-                <!-- this select isn't being captured on post-->
-                <label for="type">Type</label>
-                <select id="matType" name="materialType" id="type">
-                    <% for(let i = 0; i < types.length; i++) { %>
-                    <option value="<%= types[i] %>"><%= types[i] %></option>
-                    <% } %>
+        <div id="row1">
+            <div id="leftDiv">
+                <h1> Details </h1>
+                <li>
+                    <label for="name">Name</label>
+                    <input id="matName" type="text" name="name" maxlength="30" style="width: 180px">
+                </li>
+                <li>
+                    <!-- this select isn't being captured on post-->
+                    <label for="type">Type</label>
+                    <select id="matType" name="materialType" id="type">
+                        <% for(let i = 0; i < types.length; i++) { %>
+                        <option value="<%= types[i] %>"><%= types[i] %></option>
+                        <% } %>
+                    </select>
+                </li>
+                <li>
+                    <!-- maxlength doesn't work for number fields, so the script in those fields
+                        limits input to defined maxlength -->
+                    <label for="qty">Quantity</label>
+                    <input id="matQty" type="number" name="qty" maxlength="3" min="0" max="999" oninput="javascript: 
+                    if (this.value.length > 3) this.value = this.value.slice(0, this.maxLength);">
+                </li>
+                <li>
+                    <label for="cost">Cost</label>
+                    <input id="matCost" type="number" name="cost" step="0.01" maxlength="3" min="0.01" max="999">
+                </li>
+                <li>
+                    <label for="extcost">Extended Cost</label>
+                    <input id="matECost" type="number" name="extcost" step="0.01" maxlength="3" min="0.01" max="999">
+                </li>
+                <li>
+                    <label for="notes">Notes</label>
+                    <textarea id="matNote" name="notes" onkeyup="adjust_textarea(this)"></textarea>
+                </li>
+                <li>
+                    <input type="submit" value="Submit" onclick="return checkDupes()" formaction="/materials/submitted">
+                    <input type="reset" value="Clear" onclick="clearForms()" style="float: right;">
+                </li>
+            </div>
+
+            <!-- Column 2 -->
+            <!-- TODO.  when form gets cleared, allMaterials doesn't de-filter-->
+            <div id="centerDiv">
+                <h1> Search </h1>
+                <li>
+                    <label for="search">Filter</label>
+                    <input type="text" id="search" maxlength="30" onkeyup="filter(this.value)">
+                </li>
+                <!-- loops through all materials, lists in selection box -->
+                <select class="box" name="box1" id="materialsList" onclick="showDetails()" onkeyup="showDetails()"
+                    style="height: 260px" size="999">
+                    <% allMaterials.objects.forEach(function(item){ %>
+                    <option value="<%= item.name %>"> <%= item.name %> </option>
+                    <% });%>
                 </select>
-            </li>
-            <li>
-                <!--
-                maxlength doesn't work for number fields, so the script in those fields
-                limits input to defined maxlength
-            -->
-                <label for="qty">Quantity</label>
-                <input id="matQty" type="number" name="qty" maxlength="3" min="0" max="999" oninput="javascript: 
-            if (this.value.length > 3) this.value = this.value.slice(0, this.maxLength);">
-            </li>
-            <li>
-                <label for="cost">Cost</label>
-                <input id="matCost" type="number" name="cost" step="0.01" maxlength="3" min="0.01" max="999">
-            </li>
-            <li>
-                <label for="extcost">Extended Cost</label>
-                <input id="matECost" type="number" name="extcost" step="0.01" maxlength="3" min="0.01"
-                    max="999">
-            </li>
-            <li>
-                <label for="notes">Notes</label>
-                <textarea id="matNote" name="notes" onkeyup="adjust_textarea(this)"></textarea>
-            </li>
-            <li>
-                <input type="submit" value="Submit" onclick="return checkDupes(); selectHack()"
-                    formaction="/materials/submitted">
-                <input type="reset" value="Clear" onclick="clearForms()" style="float: right;">
-            </li>
-    </div>
+                <li>
+                    <input type="submit" value="Delete Material" onclick="return checkDeletable()"
+                        formaction="/materials/deleted">
+                </li>
+            </div>
 
-    <!-- Column 2 -->
-    <div id="centerDiv">
-        <h1> Search </h1>
-        <li>
-            <label for="search">Filter</label>
-            <input type="text" id="search" maxlength="30" onkeyup="filter(this.value)">
-        </li>
-        <!-- loops through all materials, lists in selection box -->
-        <select class="box" name="box1" id="materialsList" onclick="showDetails()" onkeyup="showDetails()"
-            style="height: 260px" size="999">
-            <% allMaterials.objects.forEach(function(item){ %>
-            <option value="<%= item.name %>"> <%= item.name %> </option>
-            <% });%>
-        </select>
-        <li>
-            <input type="submit" value="Delete Material" onclick="return checkDeletable()"
-                formaction="/materials/deleted">
-        </li>
-    </div>
-
-    <!-- Column 3 -->
-    <div id="rightDiv">
-        <h1> Related Projects </h1>
-            <select class="box" id="projectsList" name="relProjects" size="999" multiple="multiple">
-            </select>
-    </div>
-    </div>
+            <!-- Column 3 -->
+            <div id="rightDiv">
+                <h1> Related Projects </h1>
+                <select class="box" id="projectsList" name="relProjects" size="999" multiple="multiple">
+                </select>
+            </div>
+        </div>
     </form>
 
     <script> sortList("materialsList"); sortList("projectsList");</script>
 </body>
+
 
 </html>

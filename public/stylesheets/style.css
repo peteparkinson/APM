@@ -143,7 +143,6 @@ a:hover,
 .forms .box{
     height: 315px; 
     color: var(--colorGrey);
-    min-width:180px;
     border: 1px solid var(--colorlightGrey);
     margin-bottom: 15px;
     min-width:200px;
