@@ -37,7 +37,6 @@ router.post('/submitted', function (req, res) {
     } else {
         req.body.relProjects = [];
     }
-    console.log(req.body.relProjects);
     fileControl.method.addToFile(req.body, file);
     res.redirect('/materials');
 });

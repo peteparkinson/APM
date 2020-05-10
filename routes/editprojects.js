@@ -9,8 +9,8 @@ const customersPath = './records/customers.json';
 const projectsPath = './records/projects.json';
 const materialsPath = './records/materials.json';
 
-router.use(express.urlencoded({extended: true}));
-router.use(bodyParser.urlencoded({extended: true}));
+router.use(express.urlencoded({ extended: true }));
+router.use(bodyParser.urlencoded({ extended: true }));
 
 //on get edit projects page
 router.get('/', function (req, res, next) {
@@ -32,14 +32,47 @@ router.get('/', function (req, res, next) {
 
 //on post from edit projects page
 router.post('/submitted', function (req, res) {
-    if(req.body.relMaterials){
+    var allMaterials = JSON.parse(fs.readFileSync(materialsPath, 'utf8'));
+    if (req.body.relMaterials) {
         //interpret relMaterials as an array if there's only 1 elemet
-        if(!Array.isArray(req.body.relMaterials)){
+        if (!Array.isArray(req.body.relMaterials)) {
             req.body.relMaterials = [req.body.relMaterials];
-        } 
-        //TODO       
-        //updates material files
-        //updateMaterials(req.body)
+        }
+
+        /*************************************
+         * Updates material files.
+         * loop all materials, then loop and check related projects for each material
+         * add the submitted project (req.body) to the related 
+         *  materials list, if it isn't already on there.
+         * if the related projects attribute already contains the project name, but the 
+         *  user removed it from the list, remove the project from the related object 
+        *************************************/
+       
+        //TODI
+
+        if(req.body.relMaterials.includes('blank test')){
+            console.log('it\'s a miracle');
+        }
+
+        allMaterials.objects.forEach((e1) => {
+            e1.relProjects.forEach((e2) => {
+
+                if(e2 == req.body.name){
+                    console.log('found again ' + req.body.name)
+                }
+            });
+        });
+
+        /*
+        let mat = allMaterials.objects;
+        for (let i = 0; i < mat.length; i++) {
+            for (let j = 0; j < mat[i].relProjects.length; j++) {
+                if (mat[i].relProjects[j] == req.body.name) {
+                    console.log('found ' + req.body.name)
+                }
+            }
+        }
+        */
     }
 
     req.body.serial = fileControl.method.getSerial(projectsPath);

@@ -30,20 +30,6 @@
             ]
         },
         {
-            "name": "",
-            "materialType": "",
-            "qty": "",
-            "cost": "",
-            "extcost": "",
-            "notes": "",
-            "serial": 1023,
-            "relProjects": [
-                "testa",
-                "testb",
-                "testc"
-            ]
-        },
-        {
             "name": "test rel ",
             "materialType": "",
             "qty": "",
@@ -86,36 +72,6 @@
             ]
         },
         {
-            "name": "asdf",
-            "materialType": "",
-            "qty": "",
-            "cost": "",
-            "extcost": "",
-            "notes": "",
-            "box1": "asdf",
-            "serial": 1043
-        },
-        {
-            "name": "abrea",
-            "materialType": "Cloth",
-            "qty": "",
-            "cost": "",
-            "extcost": "",
-            "notes": "",
-            "box1": "abrea",
-            "serial": 1048
-        },
-        {
-            "name": "aa",
-            "materialType": "",
-            "qty": "",
-            "cost": "",
-            "extcost": "",
-            "notes": "",
-            "box1": "aa",
-            "serial": 1051
-        },
-        {
             "name": "material 2",
             "materialType": "",
             "qty": "",
@@ -143,29 +99,17 @@
                 "test1",
                 "test2"
             ],
-            "serial": 1059
+            "serial": 1061
         },
         {
-            "name": "final test",
-            "materialType": "Plastic",
-            "qty": "10",
-            "cost": "10",
-            "extcost": "10",
-            "notes": "notes go here",
-            "box1": "final test",
-            "serial": 1063,
-            "relProjects": []
-        },
-        {
-            "name": "Frame 10x12",
-            "materialType": "Wood",
-            "qty": "5",
-            "cost": "15",
-            "extcost": "75",
-            "notes": "notes here",
-            "box1": "Frame 10x12",
-            "serial": 1064,
-            "relProjects": []
+            "name": "blank test",
+            "materialType": "Glass",
+            "qty": "12",
+            "cost": "12",
+            "extcost": "12",
+            "notes": "not",
+            "serial": 1062,
+            "relProjects": ["new 1"]
         }
     ]
 }
