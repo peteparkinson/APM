@@ -177,7 +177,7 @@
                         <textarea id="notes" name="notes" maxlength="300" onkeyup="adjust_textarea(this)"></textarea>
                     </li>
                     <h1> Open Projects </h1>
-                    <select class="box" name="projects" id="projectsList" onclick="showDetails()"
+                    <select class="box" id="projectsList" onclick="showDetails()"
                         onkeyup="showDetails()" style="height: 105px" size="999">
                         <% allProjects.objects.forEach(function(item){ %>
                         <option value="<%= item.name %>"> <%= item.name %> </option>

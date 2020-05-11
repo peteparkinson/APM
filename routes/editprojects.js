@@ -55,7 +55,7 @@ router.post('/submitted', function (req, res) {
 //delete project post response
 router.post('/deleted', function (req, res) {
     var file = './records/projects.json';
-    fileControl.method.removeFromFile(req.body.projects, file);
+    fileControl.method.removeFromFile(req.body.name, file);
     res.redirect('/editprojects');
 });
 

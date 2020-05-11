@@ -82,7 +82,7 @@ var methods = {
         var allMaterials = JSON.parse(fileContents);
         allMaterials.objects.forEach((e1) => {
             //case 1b
-            if (usedMaterials.includes(e1.name)) {
+            if (usedMaterials && usedMaterials.includes(e1.name)) {
                 if (!e1.relProjects.includes(project)) {
                     e1.relProjects.push(project);
                     fs.writeFileSync(materialsPath, JSON.stringify(allMaterials));
@@ -90,8 +90,12 @@ var methods = {
                 }
             }
             //case 2b 
-            else {
-
+            else if(e1.relProjects.includes(project)){
+                console.log('removing \"' + project + '\" from \"' + e1.name + '\"' );
+                var index = e1.relProjects.indexOf(project);
+                e1.relProjects.splice(index, 1);
+                fs.writeFileSync(materialsPath, JSON.stringify(allMaterials));
+                console.log('successfully removed \"' + project + '\" from \"' + e1.name + '\"' );
             }
         });
     },
