@@ -38,42 +38,10 @@ router.post('/submitted', function (req, res) {
         if (!Array.isArray(req.body.relMaterials)) {
             req.body.relMaterials = [req.body.relMaterials];
         }
-
-        /*************************************
-         * Updates material files.
-         * loop all materials, then loop and check related projects for each material
-         * add the submitted project (req.body) to the related 
-         *  materials list, if it isn't already on there.
-         * if the related projects attribute already contains the project name, but the 
-         *  user removed it from the list, remove the project from the related object 
-        *************************************/
-       
-        //TODI
-
-        if(req.body.relMaterials.includes('blank test')){
-            console.log('it\'s a miracle');
-        }
-
-        allMaterials.objects.forEach((e1) => {
-            e1.relProjects.forEach((e2) => {
-
-                if(e2 == req.body.name){
-                    console.log('found again ' + req.body.name)
-                }
-            });
-        });
-
-        /*
-        let mat = allMaterials.objects;
-        for (let i = 0; i < mat.length; i++) {
-            for (let j = 0; j < mat[i].relProjects.length; j++) {
-                if (mat[i].relProjects[j] == req.body.name) {
-                    console.log('found ' + req.body.name)
-                }
-            }
-        }
-        */
     }
+
+    //updates "related projects" lists for all materials
+    fileControl.method.updateMaterials(req.body.name, req.body.relMaterials);
 
     req.body.serial = fileControl.method.getSerial(projectsPath);
     req.body.status = "open";
