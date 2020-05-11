@@ -6,11 +6,63 @@
     <link rel='stylesheet' href='stylesheets/style.css' />
 
     <script type="text/javascript">
+
+        const allCustStr = JSON.parse('<%- custStr %>');
+
         //auto expand textarea
         function adjust_textarea(h) {
             h.style.height = "20px";
             h.style.height = (h.scrollHeight) + "px";
         }
+
+        //populates form 1 with selected customer data
+        function showDetails() {
+            var selection = document.getElementById('customersList').value;
+            allCustStr.objects.forEach(e => {
+                if (selection == e.name) {
+                    document.getElementById("name").value = e.name;
+                    document.getElementById("address").value = e.address;
+                    document.getElementById("phone").value = e.phone;
+                    document.getElementById("notes").value = e.notes;
+                }
+            });
+            showRelProjects();
+        }
+
+        function showRelProjects(){
+            var selection = document.getElementById('customersList').value;
+            var proList = document.getElementById("projectsList");
+            //clear the list before added new options
+            clearList(proList);
+
+            allCustStr.objects.forEach(e => {
+                if (selection == e.name && e.relProjects) {
+                    for (let i = 0; i < e.relProjects.length; i++) {
+                        proList.options[proList.options.length] = new Option(e.relProjects[i]);
+                    }
+                    return;
+                }
+            });
+        }
+
+        function clearList(sel) {
+            var i, length = sel.options.length;
+            for (i = length; i >= 0; i--) {
+                sel.remove(i);
+            }
+        }
+
+        //returns false if no customer is selected, or user hits cancel on 'confirm' dialog
+        function checkSelection() {
+            var list = document.getElementById('customersList')
+            var index = list.selectedIndex;
+            if (index == -1) {
+                return false;
+            } else {
+                return confirm('Are you sure you want to delete \"' + list.value + '\"?');
+            }
+        }
+
     </script>
 
 </head>
@@ -27,7 +79,8 @@
         <br>
         <br>
         <ul>
-            <select class="box" name="customers" id="customers" size="999" style="height: 358px">
+            <select class="box" id="customersList" size="999" onkeyup="showDetails()"
+                    onclick="showDetails()" style="height: 358px">
                 <% allCustomers.objects.forEach(function(item){ %>
                 <option value="<%= item.name %>"> <%= item.name %> </option>
                 <% });%>
@@ -35,34 +88,30 @@
         </ul>
     </div>
 
-            <!-- Column 2 -->
+    <!-- Column 2 -->
     <div id="centerDiv">
         <h1> Details </h1>
         <ul>
             <li>
                 <label for="name">Name</label>
-                <input type="text" name="name" maxlength="30">
+                <input type="text" name="name" id="name" maxlength="30">
             </li>
             <li>
                 <label for="address">Address</label>
-                <input type="text" name="address" maxlength="30">
+                <input type="text" name="address" id="address" maxlength="30">
             </li>
             <li>
                 <label for="phone">Phone</label>
-                <input type="text" name="phone" maxlength="12">
+                <input type="text" name="phone" id="phone" maxlength="12">
             </li>
             <h1> Associated Projects </h1>
-            <select class="box" id="projects" name="projects" size="999" style="height: 105px">
-                <option value="Project 1">Project 1</option>
-                <option value="Project 2">Project 2</option>
-                <option value="Project 3">Project 3</option>
-                <option value="Project 4">Project 4</option>
+            <select class="box" name="relProjects" id="projectsList" size="999" style="height: 105px" disabled>
             </select>
             <li>
                 <label for="notes">Notes</label>
-                <textarea name="notes" maxlength="300" onkeyup="adjust_textarea(this)"></textarea>
+                <textarea name="notes" id="notes" maxlength="300" onkeyup="adjust_textarea(this)"></textarea>
             </li>
-            <input type="submit" value="Delete" formaction="/customers/deleted">
+            <input type="submit" value="Delete" onclick="return checkSelection()" formaction="/customers/deleted">
             <input type="submit" value="Submit" style="float: right;" formaction="/customers/submitted">
         </ul>
     </div>
