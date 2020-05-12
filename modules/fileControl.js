@@ -2,6 +2,7 @@ const express = require('express');
 const fs = require('fs');
 
 const materialsPath = './records/materials.json';
+const customersPath = './records/customers.json';
 
 var methods = {
     //add an object to a given JSON array file
@@ -80,22 +81,43 @@ var methods = {
     updateMaterials: function (project, usedMaterials) {
         var fileContents = fs.readFileSync(materialsPath, 'utf8');
         var allMaterials = JSON.parse(fileContents);
-        allMaterials.objects.forEach((e1) => {
+        allMaterials.objects.forEach((e) => {
             //case 1b
-            if (usedMaterials && usedMaterials.includes(e1.name)) {
-                if (!e1.relProjects.includes(project)) {
-                    e1.relProjects.push(project);
+            if (usedMaterials && usedMaterials.includes(e.name)) {
+                if (!e.relProjects.includes(project)) {
+                    e.relProjects.push(project);
                     fs.writeFileSync(materialsPath, JSON.stringify(allMaterials));
-                    console.log('updated \"' + e1.name + '\" with project: \"' + project + '\"');
+                    console.log('updated \"' + e.name + '\" with project: \"' + project + '\"');
                 }
             }
             //case 2b 
-            else if(e1.relProjects.includes(project)){
-                console.log('removing \"' + project + '\" from \"' + e1.name + '\"' );
-                var index = e1.relProjects.indexOf(project);
-                e1.relProjects.splice(index, 1);
+            else if(e.relProjects.includes(project)){
+                var index = e.relProjects.indexOf(project);
+                e.relProjects.splice(index, 1);
                 fs.writeFileSync(materialsPath, JSON.stringify(allMaterials));
-                console.log('successfully removed \"' + project + '\" from \"' + e1.name + '\"' );
+                console.log('removed \"' + project + '\" from \"' + e.name + '\"' );
+            }
+        });
+    },
+
+    //this can be combined with the function above
+    updateCustomer: function(project, cust){
+        var fileContents = fs.readFileSync(customersPath, 'utf8');
+        var allCustomers = JSON.parse(fileContents);
+        allCustomers.objects.forEach((e) =>{
+            if (cust && e.name == cust){
+                if(!e.relProjects.includes(project)){
+                    console.log('adding project \"' + project + '\" to customer file for \"' + e.name + '\"');
+                    e.relProjects.push(project);
+                    fs.writeFileSync(customersPath, JSON.stringify(allCustomers));
+                }
+            } else{
+                if(e.relProjects.includes(project)){
+                    var index = e.relProjects.indexOf(project);
+                    e.relProjects.splice(index, 1);
+                    fs.writeFileSync(customersPath, JSON.stringify(allCustomers));
+                    console.log('removed \"' + project + '\" from \"' + e.name + '\"' );
+                }
             }
         });
     },

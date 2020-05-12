@@ -22,7 +22,6 @@
                     document.getElementById("name").value = e.name;
                     document.getElementById("notes").value = e.notes;
                     document.getElementById("proType").value = e.type;
-                    //TODO
                     document.getElementById("customer").value = e.customer;
                 }
             });
@@ -162,11 +161,10 @@
                     <li>
                         <label for="customer">Customer</label>
                         <select id="customer" name="customer">
-                            <option value="select"></option>
-                            <option value="mary">Mary</option>
-                            <option value="john">John</option>
-                            <option value="pete">Pete</option>
-                            <option value="heather">Heather</option>
+                            <option></option>
+                            <% allCustomers.objects.forEach(function(item){ %>
+                            <option value="<%= item.name %>"> <%= item.name %> </option>
+                            <% });%>
                         </select>
                     </li>
                     <li>
@@ -174,8 +172,8 @@
                         <textarea id="notes" name="notes" maxlength="300" onkeyup="adjust_textarea(this)"></textarea>
                     </li>
                     <h1> Open Projects </h1>
-                    <select class="box" id="projectsList" onclick="showDetails()"
-                        onkeyup="showDetails()" style="height: 105px" size="999">
+                    <select class="box" id="projectsList" onclick="showDetails()" onkeyup="showDetails()"
+                        style="height: 105px" size="999">
                         <% allProjects.objects.forEach(function(item){ %>
                         <option value="<%= item.name %>"> <%= item.name %> </option>
                         <% });%>
@@ -229,5 +227,3 @@
 </body>
 
 </html>
-
-

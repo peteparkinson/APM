@@ -18,6 +18,7 @@ router.get('/', function (req, res, next) {
     var allMaterials = JSON.parse(fs.readFileSync(materialsPath, 'utf8'));
     var allCustomers = JSON.parse(fs.readFileSync(customersPath, 'utf8'));
     var proStr = JSON.stringify(allProjects);
+    var custStr = JSON.stringify(allProjects);
     var types = listControl.projectTypes;
     res.render('editprojects', {
         title: 'New / Edit Projects',
@@ -25,6 +26,7 @@ router.get('/', function (req, res, next) {
         allMaterials,
         allCustomers,
         proStr,
+        custStr,
         types,
 
     });
@@ -42,6 +44,9 @@ router.post('/submitted', function (req, res) {
 
     //updates "related projects" lists for all materials
     fileControl.method.updateMaterials(req.body.name, req.body.relMaterials);
+
+    //updates "related projects" lists for customers
+    fileControl.method.updateCustomer(req.body.name, req.body.customer);
 
     req.body.serial = fileControl.method.getSerial(projectsPath);
     req.body.status = "open";

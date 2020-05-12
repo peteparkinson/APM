@@ -4,6 +4,17 @@
 <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='stylesheets/style.css' />
+
+    <script>
+        function selectZero(){
+            document.getElementById('projectsList').options[0].selected = true;
+            document.getElementById('projectsList').options[1].selected = true;
+            document.getElementById('projectsList').options[2].selected = true;
+            document.getElementById('projectsList').options[3].selected = true;
+        }
+
+    </script>
+
 </head>
 
 <body>
@@ -16,64 +27,18 @@
             <div id="leftDiv">
                 <h1> Details </h1>
                 <ul>
-                    <li>
-                        <label for="name">Name</label>
-                        <input type="text" id="name" maxlength="30">
-                    </li>
-                    <li>
-                        <label for="projectsType">Type</label>
-                        <select id="proType" name="projectsType">
-                        </select>
-                    </li>
-                    <li>
-                        <label for="customer">Customer</label>
-                        <select id="customer">
-                            <option value="select"></option>
-                            <option value="mary">Mary</option>
-                            <option value="john">John</option>
-                            <option value="pete">Pete</option>
-                            <option value="heather">Heather</option>
-                        </select>
-                    </li>
-                    <li>
-                        <label for="notes">Notes</label>
-                        <textarea id="notes" maxlength="300" onkeyup="adjust_textarea(this)"></textarea>
-                    </li>
                     <h1> Open Projects </h1>
-                    <select class="box" name="projects" id="projectsList" onclick="showDetails()" style="height: 105px"
-                        size="999">
+                    <select class="box" name="projects" id="projectsList" style="height: 105px"
+                        size="999" disabled multiple="multiple">
+                        <option value="select"></option>
+                        <option value="mary">Mary</option>
+                        <option value="john">John</option>
+                        <option value="pete">Pete</option>
                     </select>
-                    <input type="submit" value="Delete Project" onclick="return checkSelection()">
-                    <input type="button" value="Clear" onclick="clearForms()" style="float: right">
+                    <input type="button" value="select all options" onclick="selectZero()" style="float: right">
                 </ul>
             </div>
 
-            <!-- Column 2 -->
-            <div id="centerDiv">
-                <h1> Materials Used </h1>
-                <ul>
-                    <select class="box" id="usingList" name="materials" size="999" style="height: 358px">
-                    </select>
-                </ul>
-                <ul>
-                    <input type="button" value="Save" onclick="">
-                    <input type="button" value="Remove -->" style="float: right;" onclick="">
-                </ul>
-            </div>
-
-            <!-- Column 3 -->
-            <div id="rightDiv">
-                <h1> Choose Materials </h1>
-                <ul>
-                    <li>
-                        <label for="search">Filter</label>
-                        <input type="text" id="search" maxlength="30" onkeyup="filter(this.value)">
-                    </li>
-                    <select class="box" name="box1" id="materialsList" style="height: 303px" size="999">
-                    </select>
-                    <input type="button" value="<-- Add" style="float: left;" onclick="addMat()">
-                </ul>
-            </div>
         </div>
     </form>
 

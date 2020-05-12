@@ -15,6 +15,28 @@
             h.style.height = (h.scrollHeight) + "px";
         }
 
+        //sorts a list
+        function sortList(item) {
+            var list, i, switching, b, shouldSwitch;
+            list = document.getElementById(item);
+            switching = true;
+            while (switching) {
+                switching = false;
+                b = list.getElementsByTagName("option");
+                for (i = 0; i < (b.length - 1); i++) {
+                    shouldSwitch = false;
+                    if (b[i].innerHTML.toLowerCase() > b[i + 1].innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+                if (shouldSwitch) {
+                    b[i].parentNode.insertBefore(b[i + 1], b[i]);
+                    switching = true;
+                }
+            }
+        }
+
         //populates form 1 with selected customer data
         function showDetails() {
             var selection = document.getElementById('customersList').value;
@@ -27,9 +49,10 @@
                 }
             });
             showRelProjects();
+            document.getElementById("name").disabled = true;
         }
 
-        function showRelProjects(){
+        function showRelProjects() {
             var selection = document.getElementById('customersList').value;
             var proList = document.getElementById("projectsList");
             //clear the list before added new options
@@ -43,6 +66,7 @@
                     return;
                 }
             });
+            sortList("projectsList");
         }
 
         function clearList(sel) {
@@ -63,6 +87,23 @@
             }
         }
 
+        function clearform() {
+            document.getElementById("form1").reset();
+            document.getElementById("customersList").selectedIndex = -1;
+            document.getElementById("name").disabled = false;
+            clearList(document.getElementById('projectsList'));
+        }
+
+        function selectHack() {
+            document.getElementById('name').disabled = false;
+            document.getElementById('projectsList').disabled = false;
+            var ls = document.getElementById('projectsList');
+            for (let i = 0; i < ls.options.length; i++) {
+                console.log('select ' + i)
+                ls.options[i].selected = true;
+            }
+        }
+
     </script>
 
 </head>
@@ -73,23 +114,25 @@
     <% include  templates/header.ejs%>
 
     <!-- Column 1 -->
-    <form class="forms" method="POST">
-    <div id="row1">
+    <div id="row1" class="forms">
     <div id="leftDiv">
         <br>
         <br>
         <ul>
-            <select class="box" id="customersList" size="999" onkeyup="showDetails()"
-                    onclick="showDetails()" style="height: 358px">
+            <select class="box" id="customersList" size="999" onkeyup="showDetails()" onclick="showDetails()"
+                style="height: 358px">
                 <% allCustomers.objects.forEach(function(item){ %>
                 <option value="<%= item.name %>"> <%= item.name %> </option>
                 <% });%>
             </select>
+
+            <input type="button" value="New" style="float: right;" onclick="clearform()">
         </ul>
     </div>
 
     <!-- Column 2 -->
-    <div id="centerDiv">
+    <form id="form1" class="forms" method="POST">
+    <div id="centerDiv" style="margin-top: -17px;">
         <h1> Details </h1>
         <ul>
             <li>
@@ -105,18 +148,24 @@
                 <input type="text" name="phone" id="phone" maxlength="12">
             </li>
             <h1> Associated Projects </h1>
-            <select class="box" name="relProjects" id="projectsList" size="999" style="height: 105px" disabled>
+            <select class="box" id="projectsList" name="relProjects" size="999" style="height: 105px"
+                multiple="multiple" disabled>
             </select>
             <li>
                 <label for="notes">Notes</label>
                 <textarea name="notes" id="notes" maxlength="300" onkeyup="adjust_textarea(this)"></textarea>
             </li>
-            <input type="submit" value="Delete" onclick="return checkSelection()" formaction="/customers/deleted">
-            <input type="submit" value="Submit" style="float: right;" formaction="/customers/submitted">
+            <input type="submit" value="Delete" onclick="return checkSelection()"
+                formaction="/customers/deleted">
+            <input type="submit" value="Submit" style="float: right;" onclick="selectHack()"
+                formaction="/customers/submitted">
         </ul>
     </div>
     </div>
     </form>
+    <script>
+        sortList("customersList");
+    </script>
 </body>
 
 </html>
