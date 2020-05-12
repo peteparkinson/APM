@@ -1,73 +1,105 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title><%= title %></title>
-        <link rel='stylesheet' href='stylesheets/style.css'>
-    </head>
-    <body>
-        <h1><%= title %></h1>
-        <% include  templates/header.ejs%>
 
-        <!-- Column 1 -->
-        <form class="forms">
-            <h1 style="margin: 0px 0px -22px 40px;">Open Projects</h1>
-            <label class="switch" style="margin-bottom: 15px;">
-                <input type="checkbox" checked>
-                <span class="slider round"></span>
-            </label>
-            <select class ="box" id="materials" name="materials" size="999">
-                <option value="Project 1">Project 1</option>
-                <option value="Project 2">Project 2</option>
-                <option value="Project 3">Project 3</option>
-                <option value="Project 4">Project 4</option>
-            </select>
-            <input type="button" value="Close Project" style="margin-top: 20px;">
-        </form>
+<head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='stylesheets/style.css'>
 
-        <!-- Column 2 -->
-        <form class="forms">
-            <h1> Using Materials </h1>
-            <select  class="box" id="materials" name="materials" size="999" >
-                <option value="material1">Material 1</option>
-                <option value="material2">Material 2</option>
-                <option value="material3">Material 3</option>
-                <option value="material4">Material 4</option>
-            </select>
-        </form>
+    <script>
 
-        <!-- Column 3 -->
-        <form class="forms">
-            <h1> Costs </h1>
-            <ul>
-                <li>
-                    <label for="hours">Hours</label>
-                    <input type="number" name="hours" maxlength="3" min="0" max="999"
-                    oninput="javascript: 
+        const allProStr = JSON.parse('<%- proStr %>');
+
+        function toggle() {
+            var check = document.getElementById('check');
+            console.log(check.value);
+        }
+
+        function showDetails() {
+            var selection = document.getElementById('openProjects').value;
+            allProStr.objects.forEach(e => {
+                if (selection == e.name) {
+                    document.getElementById("hours").value = e.hours;
+                    document.getElementById("materials").value = calcMatCost(e);
+                    document.getElementById("total").value = calcTotalCost(e);
+                    document.getElementById("charge").value = e.charge;
+                    document.getElementById("customer").value = e.customer;
+                }
+            });
+            showRelMaterials();
+            sortList("usingList");
+        }
+
+        function calcMatCost(project){
+
+        }
+        function calcTotalCost(project){
+
+        }
+    </script>
+</head>
+
+<body>
+    <h1><%= title %></h1>
+    <% include  templates/header.ejs%>
+
+    <!-- Column 1 -->
+    <form class="forms">
+        <h1>Closed Projects</h1>
+        </label>
+        <select class="box" id="closedProjects" size="999">
+            <% allProjects.objects.forEach(function(item){ %>
+            <% if(item.status == "closed"){ %>
+            <option value="<%= item.name %>"> <%= item.name %> </option>
+            <% }});%>
+        </select>
+        <input type="button" value="Reopen Project -->" style="margin-top: 20px; float: right;">
+    </form>
+
+    <!-- Column 2 -->
+    <form class="forms">
+        <h1> Open Projects </h1>
+        <select class="box" id="openProjects" size="999" onclick="showDetails()" onkeyup="showDetails()">
+            <% allProjects.objects.forEach(function(item){ %>
+            <% if(item.status == "open"){ %>
+            <option value="<%= item.name %>"> <%= item.name %> </option>
+            <% }});%>
+        </select>
+        <input type="button" value="<-- Close Project" style="margin-top: 20px;">
+    </form>
+
+    <!-- Column 3 -->
+    <form class="forms">
+        <h1> Costs </h1>
+        <ul>
+            <li>
+                <label for="hours">Hours</label>
+                <input type="number" name="hours" maxlength="3" min="0" max="999" oninput="javascript: 
                     if (this.value.length > 3) this.value = this.value.slice(0, this.maxLength);">
-                </li>
-                <li>
-                    <label for="materialCost">Materials</label>
-                    <input type="number" name ="materialCost" step="0.01" maxlength="3" min="0.01" max="999">
-                </li>
-                <li>
-                    <label for="total">Total</label>
-                    <input type="number" name ="total" step="0.01" maxlength="3" min="0.01" max="999">
-                </li>
-                <h1> Return </h1>
-                <li>
-                    <label for="charge">Charge</label>
-                    <input type="number" name ="charge" step="0.01" maxlength="3" min="0.01" max="999">
-                </li>
-                <li>
-                    <label for="net">Net</label>
-                    <input type="number" name ="net" step="0.01" maxlength="3" min="0.01" max="999">
-                </li>
-                <br><br>
-                <li style="border:1px solid rgb(221, 221, 221);">
-                    <label for="customer">Customer</label>
-                    <input type="text" name ="customer" maxlength="30" >
-                </li>
-            </ul>
-        </form>
-    </body>
+            </li>
+            <li>
+                <label for="materialCost">Materials</label>
+                <input type="number" name="materialCost" step="0.01" maxlength="3" min="0.01" max="999">
+            </li>
+            <li>
+                <label for="total">Total</label>
+                <input type="number" name="total" step="0.01" maxlength="3" min="0.01" max="999">
+            </li>
+            <h1> Return </h1>
+            <li>
+                <label for="charge">Charge</label>
+                <input type="number" name="charge" step="0.01" maxlength="3" min="0.01" max="999">
+            </li>
+            <li>
+                <label for="net">Net</label>
+                <input type="number" name="net" step="0.01" maxlength="3" min="0.01" max="999">
+            </li>
+            <br><br>
+            <li style="border:1px solid rgb(221, 221, 221);">
+                <label for="customer">Customer</label>
+                <input type="text" name="customer" maxlength="30">
+            </li>
+        </ul>
+    </form>
+</body>
+
 </html>
