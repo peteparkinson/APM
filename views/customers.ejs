@@ -27,6 +27,7 @@
                 }
             });
             showRelProjects();
+            document.getElementById("name").disabled = true;
         }
 
         function showRelProjects(){
@@ -63,6 +64,12 @@
             }
         }
 
+        function clearform(){
+            document.getElementById("form1").reset();
+            document.getElementById("customersList").selectedIndex = -1;
+            document.getElementById("name").disabled = false;
+        }
+
     </script>
 
 </head>
@@ -73,8 +80,7 @@
     <% include  templates/header.ejs%>
 
     <!-- Column 1 -->
-    <form class="forms" method="POST">
-    <div id="row1">
+    <div id="row1" class="forms">
     <div id="leftDiv">
         <br>
         <br>
@@ -85,11 +91,14 @@
                 <option value="<%= item.name %>"> <%= item.name %> </option>
                 <% });%>
             </select>
+            
+            <input type="button" value="New" style="float: right;" onclick="clearform()">
         </ul>
     </div>
 
     <!-- Column 2 -->
-    <div id="centerDiv">
+    <form id="form1" class="forms" method="POST">
+    <div id="centerDiv" style="margin-top: -17px;">
         <h1> Details </h1>
         <ul>
             <li>
