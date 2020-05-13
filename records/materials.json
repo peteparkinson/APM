@@ -2,44 +2,23 @@
     "objectName": "materials",
     "objects": [
         {
-            "name": "material 3",
-            "materialType": "",
-            "qty": "",
-            "cost": "",
-            "extcost": "",
-            "notes": "",
-            "serial": 1002,
-            "relProjects": [
-                "project 1"
-            ]
-        },
-        {
-            "name": "material 4",
-            "materialType": "",
-            "qty": "",
-            "cost": "",
-            "extcost": "",
-            "notes": "",
-            "serial": 1003,
-            "relProjects": [
-                "project 1"
-            ]
-        },
-        {
             "name": "test re",
             "materialType": "Other",
             "qty": "",
-            "cost": "23",
-            "extcost": "5",
+            "cost": 23,
+            "extcost": 5,
             "notes": "adf",
             "serial": 1032,
-            "relProjects": []
+            "relProjects": [
+                "blank",
+                "blargatha"
+            ]
         },
         {
             "name": "material 1",
             "materialType": "Plastic",
-            "qty": "10",
-            "cost": "10",
+            "qty": 10,
+            "cost": 10,
             "extcost": "10",
             "notes": "notes go here",
             "serial": 1035,
@@ -48,29 +27,53 @@
             ]
         },
         {
-            "name": "material 2",
-            "materialType": "",
-            "qty": "",
-            "cost": "",
-            "extcost": "",
-            "notes": "",
-            "box1": "material 2",
-            "relProjects": [
-                "project 1"
-            ],
-            "serial": 1055
-        },
-        {
             "name": "mat",
             "materialType": "Ceramic",
-            "qty": "1",
-            "cost": "0.01",
+            "qty": 1,
+            "cost": 0.01,
             "extcost": "0.01",
             "notes": "asdf",
             "serial": 1056,
             "relProjects": [
-                "project 1"
+                "project 1",
+                "blargatha"
             ]
+        },
+        {
+            "name": "material 2",
+            "materialType": "Metal",
+            "qty": 5,
+            "cost": 5,
+            "extcost": 5,
+            "notes": "asdf",
+            "relProjects": [
+                "project 1"
+            ],
+            "serial": 1057
+        },
+        {
+            "name": "material 3",
+            "materialType": "Glass",
+            "qty": 7,
+            "cost": 7,
+            "extcost": 7,
+            "notes": "qwer",
+            "relProjects": [
+                "project 1"
+            ],
+            "serial": 1058
+        },
+        {
+            "name": "material 4",
+            "materialType": "Stone",
+            "qty": 1,
+            "cost": 9,
+            "extcost": 9,
+            "notes": "ghjk",
+            "relProjects": [
+                "project 1"
+            ],
+            "serial": 1059
         }
     ]
 }

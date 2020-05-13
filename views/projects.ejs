@@ -8,6 +8,7 @@
     <script>
 
         const allProStr = JSON.parse('<%- proStr %>');
+        const allMatStr = JSON.parse('<%- matStr %>');
 
         function toggle() {
             var check = document.getElementById('check');
@@ -15,26 +16,44 @@
         }
 
         function showDetails() {
+            document.getElementById('form1').reset();
             var selection = document.getElementById('openProjects').value;
-            allProStr.objects.forEach(e => {
-                if (selection == e.name) {
-                    document.getElementById("hours").value = e.hours;
-                    //document.getElementById("matCost").value = calcMatCost(e);
+            allProStr.objects.forEach(e1 => {
+                if (selection == e1.name) {
+                    document.getElementById("hours").value = e1.hours;
+                    document.getElementById("charge").value = e1.charge;
+                    document.getElementById("customer").value = e1.customer;
+
+                    //calculate materials cost
+                    if (e1.relMaterials) {
+                        var matCost = 0;
+                        allMatStr.objects.forEach(e2 => {
+                            if (e1.relMaterials.includes(e2.name)) {
+                                //check multiple occurrences of a meterial in a project
+                                let occ = 0;
+                                for (let i = 0; i < e1.relMaterials.length; i++) {
+                                    if (e1.relMaterials[i] == e2.name) {
+                                        occ++;
+                                    }
+                                }
+                                matCost += (e2.cost * occ);
+                            }
+                        });
+                        document.getElementById("matCost").value = Math.floor(matCost * 100) / 100;
+                    }
                     //document.getElementById("total").value = calcTotalCost(e);
-                    document.getElementById("charge").value = e.charge;
                     //document.getElementById("net").value = calcNet(e);
-                    document.getElementById("customer").value = e.customer;
                 }
             });
         }
 
-        function calcMatCost(project){
+        function calcMatCost(project) {
 
         }
-        function calcTotalCost(project){
+        function calcTotalCost(project) {
 
         }
-        function calcNet(project){
+        function calcNet(project) {
 
         }
     </script>
@@ -71,7 +90,7 @@
     </form>
 
     <!-- Column 3 -->
-    <form class="forms">
+    <form class="forms" id="form1">
         <h1> Costs </h1>
         <ul>
             <li>
