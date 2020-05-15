@@ -51,6 +51,7 @@
                         });
                         matCost.value = Math.floor(tmp * 100) / 100;
 
+
                     } else {
                         matCost.value = 0;
                     }
@@ -87,14 +88,14 @@
     <!-- Column 2 -->
     <form class="forms">
         <h1> Open Projects </h1>
-        <select class="box" id="openProjects" size="999" onclick="showDetails(); calculate()" onkeyup="showDetails()">
+        <select class="box" id="openProjects" size="999" onclick="showDetails(); calculate()" onkeyup="showDetails(); calculate()">
             <% allProjects.objects.forEach(function(item){ %>
             <% if(item.status == "open"){ %>
             <option value="<%= item.name %>"> <%= item.name %> </option>
             <% }});%>
         </select>
         <input type="submit" value="Submit" formaction="/projects/submitted" style="float: right; margin-top: 20px">
-        <input type="button" value="<- Close" style="margin-top: 20px;">
+        <input type="submit" value="<- Close" style="margin-top: 20px;" formaction="/projects/closed?">
     </form>
 
     <!-- Column 3 -->
@@ -110,7 +111,7 @@
             <li>
                 <label for="hours">Hours</label>
                 <input type="number" id="hours" name="hours" maxlength="3" min="0" max="999" oninput="javascript: 
-                    if (this.value.length > 3) this.value = this.value.slice(0, this.maxLength);" onclick="calculate()">
+                    if (this.value.length > 3) this.value = this.value.slice(0, this.maxLength);" onclick="calculate()" onkeyup="calculate()">
             </li>
             <li>
                 <label for="materialCost">Materials</label>
@@ -124,7 +125,7 @@
             <h1 style="padding-top: 5px;"> Return </h1>
             <li>
                 <label for="charge">Charge</label>
-                <input type="number" id="charge" name="charge" step="1" maxlength="3" min="0" max="999" oninput="javascript: 
+                <input type="number" id="charge" name="charge" step="1" maxlength="4" min="0" max="9999" oninput="javascript: 
                 if (this.value.length > 3) this.value = this.value.slice(0, this.maxLength);" 
                     onclick="net.value = Math.floor(charge.value - total.value);">
             </li>

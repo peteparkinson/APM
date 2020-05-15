@@ -9,6 +9,7 @@ var methods = {
     addToFile: function (obj, file) {
         var fileContents = fs.readFileSync(file, 'utf8');
         var parsed = JSON.parse(fileContents);
+        //if adding an object to file, and the object is already there, update it
         if (methods.present(obj, parsed)) {
             methods.removeFromFile(obj.name, file);
             //refresh parsed data with object removed from array
@@ -118,6 +119,17 @@ var methods = {
                     fs.writeFileSync(customersPath, JSON.stringify(allCustomers));
                     console.log('removed \"' + project + '\" from \"' + e.name + '\"' );
                 }
+            }
+        });
+    },
+
+    closeProject: function(pro){
+        var fileContents = fs.readFileSync(projectsPath, 'utf8');
+        var allProjects = JSON.parse(fileContents);
+        allProjects.objects.forEach((e) =>{
+            if (pro && e.name == pro){
+                e.status = "closed";
+                this.addToFile(pro, projectsPath);
             }
         });
     },

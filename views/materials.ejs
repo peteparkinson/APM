@@ -58,13 +58,13 @@
                 if (list[i].value == check) {
                     if (confirm('Duplicate found, please confirm overwrite, or rename')) {
                         selectHack();
-                        return TRUE;
+                        return true;
                     } else { 
-                        return FALSE
+                        return false
                     }
                 }
             }
-            return TRUE;
+            return true;
         }
 
         //returns false if no material is selected, or user hits cancel on 'confirm' dialog
