@@ -40,13 +40,6 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
-
-app.get('/submitted-material', function(req, res){
-    var data = JSON.stringify(item, null, 4);
-    fs.appendFileSync('./records/newFile.json', ",\n" + data);
-    return res.send(req.query); 
-});
-
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development

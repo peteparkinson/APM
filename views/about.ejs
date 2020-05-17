@@ -6,12 +6,6 @@
     <link rel='stylesheet' href='stylesheets/style.css' />
 
     <script>
-        function selectZero(){
-            document.getElementById('projectsList').options[0].selected = true;
-            document.getElementById('projectsList').options[1].selected = true;
-            document.getElementById('projectsList').options[2].selected = true;
-            document.getElementById('projectsList').options[3].selected = true;
-        }
 
     </script>
 
@@ -20,30 +14,15 @@
 <body>
     <h1><%= title %></h1>
     <% include templates/header.ejs%>
-
+    <br>
+    <br>
     <!-- Column 1 -->
-    <form class="forms" id="form1" method="POST" action="/editprojects/deleted">
-        <div id="row1">
-            <div id="leftDiv">
-                <h1> Details </h1>
-                <ul>
-                    <h1> Open Projects </h1>
-                    <select class="box" name="projects" id="projectsList" style="height: 105px"
-                        size="999" disabled multiple="multiple">
-                        <option value="select"></option>
-                        <option value="mary">Mary</option>
-                        <option value="john">John</option>
-                        <option value="pete">Pete</option>
-                    </select>
-                    <input type="button" value="select all options" onclick="selectZero()" style="float: right">
-                </ul>
-            </div>
-
-        </div>
+    <h1>
+        This page tests a button
+    </h1>
+    <form class="forms" id="form1" method="POST" action="/editprojects/sample">
+        <input type="submit" value="Click Me" onclick="doSomething()">
     </form>
-
-
-
 
 </body>
 

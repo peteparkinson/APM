@@ -42,11 +42,11 @@ router.post('/submitted', function (req, res) {
         }
     }
 
-    //updates "related projects" lists for all materials
+    //updates "related projects" lists for all materials (works) 
     fileControl.method.updateMaterials(req.body.name, req.body.relMaterials);
 
-    //updates "related projects" lists for customers
-    fileControl.method.updateCustomer(req.body.name, req.body.customer);
+    //updates "related projects" lists for customers (works)
+    fileControl.method.updateCustomer(req.body.name, req.body.customer); 
 
     req.body.serial = fileControl.method.getSerial(projectsPath);
     req.body.status = "open";
@@ -59,9 +59,13 @@ router.post('/submitted', function (req, res) {
 
 //delete project post response
 router.post('/deleted', function (req, res) {
-    var file = './records/projects.json';
-    fileControl.method.removeFromFile(req.body.name, file);
+    fileControl.method.deleteProject(req.body.name); 
     res.redirect('/editprojects');
+});
+
+//sample POST
+router.post('/sample', function (req, res) {
+    res.send('I am a confirmation screen');
 });
 
 module.exports = router;

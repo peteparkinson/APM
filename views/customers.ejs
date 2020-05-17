@@ -78,6 +78,8 @@
 
         //returns false if no customer is selected, or user hits cancel on 'confirm' dialog
         function checkSelection() {
+            document.getElementById('name').disabled = false;
+            document.getElementById('projectsList').disabled = false;
             var list = document.getElementById('customersList')
             var index = list.selectedIndex;
             if (index == -1) {
@@ -102,6 +104,7 @@
                 console.log('select ' + i)
                 ls.options[i].selected = true;
             }
+            
         }
 
     </script>

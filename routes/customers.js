@@ -22,17 +22,18 @@ router.get('/', function(req, res, next) {
 
 //on post from edit projects page
 router.post('/submitted', function (req, res) {
-    
+    req.body.serial = fileControl.method.getSerial(customersPath);
+    //if the user is editing an existing user, there might be related projects
     if (req.body.relProjects) {
-        //interpret relProjects as an array if there's only 1 elemet
+        //interpret relProjects as an array if there's only 1 element
         if (!Array.isArray(req.body.relProjects)) {
             req.body.relProjects = [req.body.relProjects];
         }
+    } else {
+        req.body.relProjects = [];
     }
 
-    console.log(req.body.name);
-    console.log(req.body.relProjects);
-    req.body.serial = fileControl.method.getSerial(customersPath);
+    //addToFile handles duplicates by overwriting. use confirms overwrite
     fileControl.method.addToFile(req.body, customersPath);
     res.redirect('/customers');
 });
@@ -40,7 +41,7 @@ router.post('/submitted', function (req, res) {
 
 //delete project post response
 router.post('/deleted', function (req, res) {
-
+    fileControl.method.removeFromFile(req.body.name, './records/customers.json');
     res.redirect('/customers');
 });
 

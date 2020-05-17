@@ -2,6 +2,7 @@ const express = require('express');
 const fs = require('fs');
 
 const materialsPath = './records/materials.json';
+const projectsPath = './records/projects.json';
 const customersPath = './records/customers.json';
 
 var methods = {
@@ -101,11 +102,12 @@ var methods = {
         });
     },
 
-    //this can be combined with the function above
+    //this should be combined with the function above
     updateCustomer: function(project, cust){
         var fileContents = fs.readFileSync(customersPath, 'utf8');
         var allCustomers = JSON.parse(fileContents);
         allCustomers.objects.forEach((e) =>{
+            //adds project to to "related projects" attribute of a customer
             if (cust && e.name == cust){
                 if(!e.relProjects.includes(project)){
                     console.log('adding project \"' + project + '\" to customer file for \"' + e.name + '\"');
@@ -113,6 +115,7 @@ var methods = {
                     fs.writeFileSync(customersPath, JSON.stringify(allCustomers));
                 }
             } else{
+                //if customer isn't related to project, this removes the project from their attributes
                 if(e.relProjects.includes(project)){
                     var index = e.relProjects.indexOf(project);
                     e.relProjects.splice(index, 1);
@@ -121,6 +124,36 @@ var methods = {
                 }
             }
         });
+    },
+
+    deleteProject: function(pro){
+        //update related materials and customer, then remove from file
+        var allProjects  = JSON.parse(fs.readFileSync(projectsPath, 'utf8'));
+        var allCustomers = JSON.parse(fs.readFileSync(customersPath, 'utf8'));
+        var allMaterials = JSON.parse(fs.readFileSync(materialsPath, 'utf8'));
+        allProjects.objects.forEach(e1 => {
+            if(pro && e1.name == pro){
+                //remove project from related materials files
+                allMaterials.objects.forEach(e2 => {
+                    if(e1.relMaterials.includes(e2.name)){
+                        var index = e2.relProjects.indexOf(pro);
+                        e2.relProjects.splice(index, 1);
+                        fs.writeFileSync(materialsPath, JSON.stringify(allMaterials));
+                        console.log('removed \"' + pro + '\" from \"' + e2.name + '\"' );
+                    }
+                });
+                //removes project from customer's file
+                allCustomers.objects.forEach(e2 => {
+                    if(e1.customer == e2.name){
+                        var index = e2.relProjects.indexOf(pro);
+                        e2.relProjects.splice(index, 1);
+                        fs.writeFileSync(customersPath, JSON.stringify(allCustomers));
+                        console.log('removed \"' + pro + '\" from \"' + e2.name + '\"' );
+                    }
+                });
+            }
+        });
+        this.removeFromFile(pro, './records/projects.json');
     },
 
     closeProject: function(pro){
@@ -132,10 +165,6 @@ var methods = {
                 this.addToFile(pro, projectsPath);
             }
         });
-    },
-
-    demo: function () {
-        console.log('Hello World');
     }
 }
 
