@@ -8,6 +8,8 @@
 
         const allProStr = JSON.parse('<%- proStr %>');
 
+        var allMat = JSON.parse('<%- matStr %>');
+
         //auto expand textarea
         function adjust_textarea(h) {
             h.style.height = "20px";
@@ -84,6 +86,21 @@
             for (i = length; i >= 0; i--) {
                 sel.remove(i);
             }
+        }
+
+        function checkQOH() {
+            var selectedMaterial = document.getElementById('materialsList').value;
+
+            allMat.objects.forEach(e => {
+                if (e.name == selectedMaterial) {
+                    if (e.qty > 0) {
+                        e.qty--;
+                        addMat();
+                    } else {
+                        alert(selectedMaterial + ' is out of stock');
+                    }
+                }
+            });
         }
 
         function addMat() {
@@ -173,14 +190,15 @@
                     </li>
                     <h1> Open Projects </h1>
                     <select class="box" id="projectsList" onclick="showDetails()" onkeyup="showDetails()"
-                        style="height: 105px" size="999">
+                        style="height: 103px" size="999">
                         <% allProjects.objects.forEach(function(item){ %>
                         <option value="<%= item.name %>"> <%= item.name %> </option>
                         <% });%>
                     </select>
-                    <input type="submit" value="Delete Project" onclick="return checkSelection()"
-                        formaction="/editprojects/deleted">
-                    <input type="button" value="Clear" onclick="clearForms()" style="float: right">
+                    <input type="submit" value="Save" onclick="selectHack()" formaction="/editprojects/submitted">
+
+                    <input type="submit" value="Delete" onclick="return checkSelection()"
+                        formaction="/editprojects/deleted" style="float: right">
                 </ul>
 
             </div>
@@ -194,7 +212,7 @@
                     </select>
                 </ul>
                 <ul>
-                    <input type="submit" value="Save" onclick="selectHack()" formaction="/editprojects/submitted">
+                    <input type="button" value="Clear" onclick="clearForms()" style="float: left">
                     <input type="button" value="Remove -->" style="float: right;" onclick="removeMat()">
                 </ul>
             </div>
@@ -213,15 +231,15 @@
                 <option value="<%= item.name %>"> <%= item.name %> </option>
                 <% });%>
             </select>
-            <input type="button" value="<-- Add" style="float: left;" onclick="addMat()">
+            <input type="button" value="<-- Add" style="float: left;" onclick="checkQOH()">
         </ul>
         </div>
     </form>
 
     <script>
-        sortList("materialsList");
         sortList("projectsList");
-        sortList("usingList"); 
+        sortList("usingList");
+        sortList("materialsList");
     </script>
 
 </body>

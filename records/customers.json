@@ -1,1 +1,1 @@
-{"objectName":"customers","objects":[{"name":"pete","address":"123 broad st.","phone":"123456","notes":"notes here","serial":1014,"relProjects":[]},{"name":"Customer 1","address":"1","phone":"1","notes":"1","serial":1015,"relProjects":[]}]}
+{"objectName":"customers","objects":[{"name":"Pete","address":"123 asdf","phone":"123 456 789","notes":"notes","serial":1000,"relProjects":["Project 1"]}]}

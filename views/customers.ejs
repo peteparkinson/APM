@@ -158,10 +158,10 @@
                 <label for="notes">Notes</label>
                 <textarea name="notes" id="notes" maxlength="300" onkeyup="adjust_textarea(this)"></textarea>
             </li>
-            <input type="submit" value="Delete" onclick="return checkSelection()"
-                formaction="/customers/deleted">
-            <input type="submit" value="Submit" style="float: right;" onclick="selectHack()"
+            <input type="submit" value="Submit" onclick="selectHack()"
                 formaction="/customers/submitted">
+            <input type="submit" value="Delete" onclick="return checkSelection()"
+                formaction="/customers/deleted" style="float: right;">
         </ul>
     </div>
     </div>

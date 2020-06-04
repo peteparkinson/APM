@@ -93,7 +93,7 @@
                     document.getElementById("matType").value = e.materialType;
                     document.getElementById("matQty").value = e.qty;
                     document.getElementById("matCost").value = e.cost;
-                    document.getElementById("matECost").value = e.extcost;
+                    document.getElementById("matECost").value = e.cost * e.qty;
                     document.getElementById("matNote").value = e.notes;
                 }
             });
@@ -139,6 +139,13 @@
                 ls.options[i].selected = true;
             }
         }
+
+        function updateECost(){
+            console.log('called');
+            var qty = document.getElementById("matQty").value;
+            var cost = document.getElementById("matCost").value;
+            document.getElementById("matECost").value = Math.floor((cost * qty) * 100) / 100;
+        }
     </script>
 </head>
 
@@ -176,15 +183,16 @@
                         limits input to defined maxlength -->
                     <label for="qty">Quantity</label>
                     <input id="matQty" type="number" name="qty" maxlength="3" min="0" max="999" oninput="javascript: 
-                    if (this.value.length > 3) this.value = this.value.slice(0, this.maxLength);">
+                    if (this.value.length > 3) this.value = this.value.slice(0, this.maxLength); updateECost()">
                 </li>
                 <li>
                     <label for="cost">Cost</label>
-                    <input id="matCost" type="number" name="cost" step="0.01" maxlength="3" min="0.01" max="999">
+                    <input id="matCost" type="number" name="cost" step="0.01" maxlength="3" min="0.01" max="999"
+                        onchange="updateECost()">
                 </li>
                 <li>
                     <label for="extcost">Extended Cost</label>
-                    <input id="matECost" type="number" name="extcost" step="0.01" maxlength="3" min="0.01" max="999">
+                    <input id="matECost" type="number" step="0.01" maxlength="3" min="0.01" max="999" disabled>
                 </li>
                 <li>
                     <label for="notes">Notes</label>

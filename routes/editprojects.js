@@ -18,6 +18,7 @@ router.get('/', function (req, res, next) {
     var allMaterials = JSON.parse(fs.readFileSync(materialsPath, 'utf8'));
     var allCustomers = JSON.parse(fs.readFileSync(customersPath, 'utf8'));
     var proStr = JSON.stringify(allProjects);
+    var matStr = JSON.stringify(allMaterials);
     var custStr = JSON.stringify(allProjects);
     var types = listControl.projectTypes;
     res.render('editprojects', {
@@ -26,6 +27,7 @@ router.get('/', function (req, res, next) {
         allMaterials,
         allCustomers,
         proStr,
+        matStr,
         custStr,
         types,
 
