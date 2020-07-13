@@ -33,10 +33,10 @@ router.post('/closed', function (req, res) {
     res.redirect('/projects');
 });
 
-//User submits a project to close
+//User updates costs for a project
 router.post('/submitted', function (req, res) {
+    console.log(req.body);
     res.redirect('/projects');
 });
 
 module.exports = router;
-

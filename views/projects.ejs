@@ -2,10 +2,9 @@
 <html>
 
 <head>
-    <title><%= title %></title>
     <link rel='stylesheet' href='stylesheets/style.css'>
 
-    <script>
+    <script type="text/javascript">
 
         const allProStr = JSON.parse('<%- proStr %>');
         const allMatStr = JSON.parse('<%- matStr %>');
@@ -73,9 +72,8 @@
     <% include  templates/header.ejs%>
 
     <!-- Column 1 -->
-    <form class="forms">
+    <form class="forms" method="POST">
         <h1>Closed Projects</h1>
-        </label>
         <select class="box" id="closedProjects" size="999">
             <% allProjects.objects.forEach(function(item){ %>
             <% if(item.status == "closed"){ %>
@@ -86,7 +84,7 @@
     </form>
 
     <!-- Column 2 -->
-    <form class="forms">
+    <form class="forms" method="POST">
         <h1> Open Projects </h1>
         <select class="box" id="openProjects" size="999" onclick="showDetails(); calculate()" onkeyup="showDetails(); calculate()">
             <% allProjects.objects.forEach(function(item){ %>
@@ -95,7 +93,7 @@
             <% }});%>
         </select>
         <input type="submit" value="Submit" formaction="/projects/submitted" style="float: right; margin-top: 20px">
-        <input type="submit" value="<- Close" style="margin-top: 20px;" formaction="/projects/closed?">
+        <input type="submit" value="<- Close" style="margin-top: 20px;" formaction="/projects/closed">
     </form>
 
     <!-- Column 3 -->
@@ -135,6 +133,7 @@
             </li>
         </ul>
     </form>
+    
 </body>
 
 </html>

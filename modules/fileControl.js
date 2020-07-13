@@ -83,6 +83,26 @@ var methods = {
     updateMaterials: function (project, usedMaterials) {
         var fileContents = fs.readFileSync(materialsPath, 'utf8');
         var allMaterials = JSON.parse(fileContents);
+        fileContents = fs.readFileSync(projectsPath, 'utf8');
+        var allProjects = JSON.parse(fileContents);
+
+        //this updates the quantities for each material
+        allProjects.objects.forEach((e1) => {
+            if (e1.name == project) {
+                allMaterials.objects.forEach((e2) => {
+                    var adjustment = this.occurrenceOf(e2.name, e1.relMaterials)
+                        - this.occurrenceOf(e2.name, usedMaterials);
+                    e2.qty = parseInt(e2.qty) + adjustment;
+                    console.log (e2.qty);
+                });
+                fs.writeFileSync(materialsPath, JSON.stringify(allMaterials));
+            }
+        });
+
+        allMaterials.objects.forEach((e) => {
+            console.log (e.qty);
+        });
+
         allMaterials.objects.forEach((e) => {
             //case 1b
             if (usedMaterials && usedMaterials.includes(e.name)) {
@@ -100,6 +120,9 @@ var methods = {
                 console.log('removed \"' + project + '\" from \"' + e.name + '\"' );
             }
         });
+
+
+
     },
 
     //this should be combined with the function above
@@ -165,6 +188,18 @@ var methods = {
                 this.addToFile(pro, projectsPath);
             }
         });
+    },
+
+    occurrenceOf: function(e, arr){
+        let count = 0;
+        if(arr){
+            for(let i = 0; i < arr.length; i++){
+                if(arr[i] == e){
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 }
 

@@ -6,7 +6,17 @@
     <link rel='stylesheet' href='stylesheets/style.css' />
 
     <script>
-
+        function occurrenceOf() {
+            let e = 3;
+            let arr = [1, 1, 2, 2, 3, 3, 4, 4, 5, 6, 6];
+            let count = 0;
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i] == e) {
+                    count++;
+                }
+            }
+            console.log(count);
+        }
     </script>
 
 </head>
@@ -20,8 +30,9 @@
     <h1>
         This page tests a button
     </h1>
-    <form class="forms" id="form1" method="POST" action="/editprojects/sample">
-        <input type="submit" value="Click Me" onclick="doSomething()">
+    <!--form class="forms" id="form1" method="POST" action="/editprojects/sample"-->
+    <form class="forms" id="form1">
+        <input type="button" value="Click Me" onclick="occurrenceOf()">
     </form>
 
 </body>
