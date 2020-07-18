@@ -27,9 +27,13 @@ router.get('/', function (req, res, next) {
 
 //User submits a project to close
 router.post('/closed', function (req, res) {
-    //console.log("Closing " + req.body.openProjects);
-    //fileControl.method.closeProject(req.body.openProjects);
+    fileControl.method.closeProject(req.body.openProjects);
+    res.redirect('/projects');
+});
 
+//User reopens a project
+router.post('/reopen', function (req, res) {
+    fileControl.method.openProject(req.body.closedProjects);
     res.redirect('/projects');
 });
 

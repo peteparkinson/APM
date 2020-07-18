@@ -55,6 +55,7 @@ router.post('/submitted', function (req, res) {
     req.body.hours = "0";
     req.body.charge = "0";
     fileControl.method.addToFile(req.body, projectsPath);
+    console.log(req.body);
     res.redirect('/editprojects');
 });
 

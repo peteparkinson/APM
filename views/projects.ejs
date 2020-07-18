@@ -72,21 +72,21 @@
     <% include  templates/header.ejs%>
 
     <!-- Column 1 -->
-    <form class="forms" method="POST">
+    <form class="forms" method="POST" form>
         <h1>Closed Projects</h1>
-        <select class="box" id="closedProjects" size="999">
+        <select class="box" id="closedProjects" name="closedProjects" size="999">
             <% allProjects.objects.forEach(function(item){ %>
             <% if(item.status == "closed"){ %>
             <option value="<%= item.name %>"> <%= item.name %> </option>
             <% }});%>
         </select>
-        <input type="button" value="Reopen Project -->" style="margin-top: 20px; float: right;">
+        <input type="submit" value="Reopen Project -->" formaction="/projects/reopen" style="margin-top: 20px; float: right;">
     </form>
 
     <!-- Column 2 -->
     <form class="forms" method="POST">
         <h1> Open Projects </h1>
-        <select class="box" id="openProjects" size="999" onclick="showDetails(); calculate()" onkeyup="showDetails(); calculate()">
+        <select class="box" id="openProjects" name="openProjects" size="999" onclick="showDetails(); calculate()" onkeyup="showDetails(); calculate()">
             <% allProjects.objects.forEach(function(item){ %>
             <% if(item.status == "open"){ %>
             <option value="<%= item.name %>"> <%= item.name %> </option>

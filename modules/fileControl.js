@@ -93,14 +93,13 @@ var methods = {
                     var adjustment = this.occurrenceOf(e2.name, e1.relMaterials)
                         - this.occurrenceOf(e2.name, usedMaterials);
                     e2.qty = parseInt(e2.qty) + adjustment;
-                    console.log (e2.qty);
                 });
                 fs.writeFileSync(materialsPath, JSON.stringify(allMaterials));
             }
         });
 
         allMaterials.objects.forEach((e) => {
-            console.log (e.qty);
+            console.log(e.qty);
         });
 
         allMaterials.objects.forEach((e) => {
@@ -113,11 +112,11 @@ var methods = {
                 }
             }
             //case 2b 
-            else if(e.relProjects.includes(project)){
+            else if (e.relProjects.includes(project)) {
                 var index = e.relProjects.indexOf(project);
                 e.relProjects.splice(index, 1);
                 fs.writeFileSync(materialsPath, JSON.stringify(allMaterials));
-                console.log('removed \"' + project + '\" from \"' + e.name + '\"' );
+                console.log('removed \"' + project + '\" from \"' + e.name + '\"');
             }
         });
 
@@ -126,52 +125,52 @@ var methods = {
     },
 
     //this should be combined with the function above
-    updateCustomer: function(project, cust){
+    updateCustomer: function (project, cust) {
         var fileContents = fs.readFileSync(customersPath, 'utf8');
         var allCustomers = JSON.parse(fileContents);
-        allCustomers.objects.forEach((e) =>{
+        allCustomers.objects.forEach((e) => {
             //adds project to to "related projects" attribute of a customer
-            if (cust && e.name == cust){
-                if(!e.relProjects.includes(project)){
+            if (cust && e.name == cust) {
+                if (!e.relProjects.includes(project)) {
                     console.log('adding project \"' + project + '\" to customer file for \"' + e.name + '\"');
                     e.relProjects.push(project);
                     fs.writeFileSync(customersPath, JSON.stringify(allCustomers));
                 }
-            } else{
+            } else {
                 //if customer isn't related to project, this removes the project from their attributes
-                if(e.relProjects.includes(project)){
+                if (e.relProjects.includes(project)) {
                     var index = e.relProjects.indexOf(project);
                     e.relProjects.splice(index, 1);
                     fs.writeFileSync(customersPath, JSON.stringify(allCustomers));
-                    console.log('removed \"' + project + '\" from \"' + e.name + '\"' );
+                    console.log('removed \"' + project + '\" from \"' + e.name + '\"');
                 }
             }
         });
     },
 
-    deleteProject: function(pro){
+    deleteProject: function (pro) {
         //update related materials and customer, then remove from file
-        var allProjects  = JSON.parse(fs.readFileSync(projectsPath, 'utf8'));
+        var allProjects = JSON.parse(fs.readFileSync(projectsPath, 'utf8'));
         var allCustomers = JSON.parse(fs.readFileSync(customersPath, 'utf8'));
         var allMaterials = JSON.parse(fs.readFileSync(materialsPath, 'utf8'));
         allProjects.objects.forEach(e1 => {
-            if(pro && e1.name == pro){
+            if (pro && e1.name == pro) {
                 //remove project from related materials files
                 allMaterials.objects.forEach(e2 => {
-                    if(e1.relMaterials.includes(e2.name)){
+                    if (e1.relMaterials.includes(e2.name)) {
                         var index = e2.relProjects.indexOf(pro);
                         e2.relProjects.splice(index, 1);
                         fs.writeFileSync(materialsPath, JSON.stringify(allMaterials));
-                        console.log('removed \"' + pro + '\" from \"' + e2.name + '\"' );
+                        console.log('removed \"' + pro + '\" from \"' + e2.name + '\"');
                     }
                 });
                 //removes project from customer's file
                 allCustomers.objects.forEach(e2 => {
-                    if(e1.customer == e2.name){
+                    if (e1.customer == e2.name) {
                         var index = e2.relProjects.indexOf(pro);
                         e2.relProjects.splice(index, 1);
                         fs.writeFileSync(customersPath, JSON.stringify(allCustomers));
-                        console.log('removed \"' + pro + '\" from \"' + e2.name + '\"' );
+                        console.log('removed \"' + pro + '\" from \"' + e2.name + '\"');
                     }
                 });
             }
@@ -179,27 +178,39 @@ var methods = {
         this.removeFromFile(pro, './records/projects.json');
     },
 
-    closeProject: function(pro){
+    closeProject: function (pro) {
         var fileContents = fs.readFileSync(projectsPath, 'utf8');
         var allProjects = JSON.parse(fileContents);
-        allProjects.objects.forEach((e) =>{
-            if (pro && e.name == pro){
+        allProjects.objects.forEach((e) => {
+            if (pro && e.name == pro) {
                 e.status = "closed";
-                this.addToFile(pro, projectsPath);
+                this.addToFile(e, projectsPath);
             }
         });
     },
 
-    occurrenceOf: function(e, arr){
+    occurrenceOf: function (e, arr) {
         let count = 0;
-        if(arr){
-            for(let i = 0; i < arr.length; i++){
-                if(arr[i] == e){
+        if (arr) {
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i] == e) {
                     count++;
                 }
             }
         }
         return count;
+    },
+
+    openProject: function (pro) {
+        var fileContents = fs.readFileSync(projectsPath, 'utf8');
+        var allProjects = JSON.parse(fileContents);
+        allProjects.objects.forEach((e) => {
+            if (pro && e.name == pro) {
+                e.status = "open";
+                this.addToFile(e, projectsPath);
+                console.log("reopened project: " + e.name);
+            }
+        });
     }
 }
 
