@@ -189,12 +189,15 @@
                         <textarea id="notes" name="notes" maxlength="300" onkeyup="adjust_textarea(this)"></textarea>
                     </li>
                     <h1> Open Projects </h1>
+
                     <select class="box" id="projectsList" onclick="showDetails()" onkeyup="showDetails()"
                         style="height: 103px" size="999">
                         <% allProjects.objects.forEach(function(item){ %>
+                        <% if(item.status == "open"){ %>
                         <option value="<%= item.name %>"> <%= item.name %> </option>
-                        <% });%>
+                        <% }});%>
                     </select>
+                    
                     <input type="submit" value="Save" onclick="selectHack()" formaction="/editprojects/submitted">
 
                     <input type="submit" value="Delete" onclick="return checkSelection()"

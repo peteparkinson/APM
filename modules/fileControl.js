@@ -157,7 +157,7 @@ var methods = {
             if (pro && e1.name == pro) {
                 //remove project from related materials files
                 allMaterials.objects.forEach(e2 => {
-                    if (e1.relMaterials.includes(e2.name)) {
+                    if (e1.relMaterials && e1.relMaterials.includes(e2.name)) {
                         var index = e2.relProjects.indexOf(pro);
                         e2.relProjects.splice(index, 1);
                         fs.writeFileSync(materialsPath, JSON.stringify(allMaterials));

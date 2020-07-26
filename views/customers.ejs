@@ -77,21 +77,6 @@
         }
 
         //returns false if no customer is selected, or user hits cancel on 'confirm' dialog
-        /*
-        function checkSelection() {
-            document.getElementById('name').disabled = false;
-            document.getElementById('projectsList').disabled = false;
-            var list = document.getElementById('customersList')
-            var index = list.selectedIndex;
-            if (index == -1) {
-                return false;
-            } else {
-                return confirm('Are you sure you want to delete \"' + list.value + '\"?');
-            }
-        }
-        */
-
-        //returns false if no customer is selected, or user hits cancel on 'confirm' dialog
         function checkDeletable() {
             var list = document.getElementById('customersList')
             var rel = document.getElementById('projectsList')
