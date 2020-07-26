@@ -77,6 +77,7 @@
         }
 
         //returns false if no customer is selected, or user hits cancel on 'confirm' dialog
+        /*
         function checkSelection() {
             document.getElementById('name').disabled = false;
             document.getElementById('projectsList').disabled = false;
@@ -88,7 +89,28 @@
                 return confirm('Are you sure you want to delete \"' + list.value + '\"?');
             }
         }
+        */
 
+        //returns false if no customer is selected, or user hits cancel on 'confirm' dialog
+        function checkDeletable() {
+            var list = document.getElementById('customersList')
+            var rel = document.getElementById('projectsList')
+            var index = list.selectedIndex;
+            //check if a material is selected
+            if (index == -1) {
+                return false;
+            }
+            //next, check if there are related projects
+            if (rel.length != 0) {
+                alert('This material is being used in a project and can\'t be deleted');
+                return false;
+            }
+            //these elements get enabled so their data gets POSTed
+            document.getElementById('name').disabled = false;
+            document.getElementById('projectsList').disabled = false;
+            return confirm('Are you sure you want to delete \"' + list.value + '\"?');
+        }
+        
         function clearform() {
             document.getElementById("form1").reset();
             document.getElementById("customersList").selectedIndex = -1;
@@ -160,7 +182,7 @@
             </li>
             <input type="submit" value="Submit" onclick="selectHack()"
                 formaction="/customers/submitted">
-            <input type="submit" value="Delete" onclick="return checkSelection()"
+            <input type="submit" value="Delete Customer"  onclick="return checkDeletable()"
                 formaction="/customers/deleted" style="float: right;">
         </ul>
     </div>
