@@ -7,7 +7,7 @@ Below, there's a list of features, a description for how the program should be u
 
 # General Use
 
-"Projects" are composed of "materials" which can be added to and removed from open projects.  Materials are stock-keeping-units that are tracked by quantity, and also display data such as price, description, etc. Each project can be assigned to a Customer.  Customer data such as name address and phone are tracked.  Projects can be opened as needed and closed if it's been assigned to a customer.  Upon closure, a project will generate an Invoice containing the information relevant to the sale, the customer's information and a user written message to the customer.  
+"Projects" are composed of "materials" which can be added to and removed from open projects.  Materials are stock-keeping-units that are tracked by quantity, and also contain data such as price, description, etc. Each project can be assigned to a Customer.  Customer data such as name address and phone are tracked.  Projects can be opened as needed and closed if it's been assigned to a customer.  Upon closure, a project will generate an Invoice containing the information relevant to the sale, the customer's information and a user written message to the customer.  
 
 ### Creating a Material
 Before a material can be added to a project, data about the material must be entered into the system.  
