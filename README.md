@@ -1,11 +1,18 @@
 # Art Projects Manager
 
-This program is my senior project at DeVry, graduating class September 2020.
-It's intended to facilitate record keeping and inventory control for a small arts and crafts business.
+This program's intendeduse is to facilitate record keeping and inventory control for a small arts and crafts business.
 Below, there's a list of features, a description for how the program should be used, and a technical explanation of construction.
 
 
-# General Use
+## Features
+
+* Track Inventory Levels and Usage
+* Calculate Costs / Profits
+* Generate reports
+* Track Customer Data
+* Create Invoices
+
+## General Use
 
 "Projects" are composed of "materials" which can be added to and removed from open projects.  Materials are stock-keeping-units that are tracked by quantity, and also contain data such as price, description, etc. Each project can be assigned to a Customer.  Customer data such as name address and phone are tracked.  Projects can be opened as needed and closed if it's been assigned to a customer.  Upon closure, a project will generate an Invoice containing the information relevant to the sale, the customer's information and a user written message to the customer.  
 
@@ -29,12 +36,14 @@ On the "View Projects" page, the user can look at the prices associated with the
 
 ![view-project](https://user-images.githubusercontent.com/43157092/95593607-e8ba9680-0a17-11eb-9286-51aa1a8de75f.jpg)
 
+### Invoicing
 
-This is a translation of the Art Projects Manager that was written in Java (repository on this account) except this version is in HTML, JS, and CSS. The two should be functionally identical, except the web version will be launched from a browser.
+Once a project is closed, it will appear on the "Invoice" page, where the data can be verified, and the invoice can be generated, then printed.  
 
-Currently using Node.js for server side with Express framework.
+![invoice](https://user-images.githubusercontent.com/43157092/95598292-bdd34100-0a1d-11eb-9e1f-63ed03c0c622.jpg)
 
-### Proof of Concept
+
+## Proof of Concept
 
 Written in Java using swing, this program served as a demo to the client. 
 [Here's the source code for it](https://github.com/peteparkinson/Art-Projects-Manager "GitHub - Art Projects Manager")
