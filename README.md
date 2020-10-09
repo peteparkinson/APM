@@ -44,7 +44,7 @@ Once a project is closed, it will appear on the "Invoice" page, where the data c
 
 
 # Technical Aspects
-## Node JS
+### Node JS
 
 The server is written in Node JS using Express framework, with 8 views and routes.  The database is kept locally as 3 JSON files, 1 for each object (projects, materials, customers).
 
@@ -53,7 +53,7 @@ Here's a flowchart of the file structure:
 ![Untitled](https://user-images.githubusercontent.com/43157092/95609228-64264300-0a2c-11eb-8ba3-380fa027e156.jpg)
 
 
-## Proof of Concept
+### Proof of Concept
 
 Written in Java using swing, this program served as a demo to the client. 
 [Here's the source code for it](https://github.com/peteparkinson/Art-Projects-Manager "GitHub - Art Projects Manager")
