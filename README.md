@@ -12,7 +12,7 @@ Below, there's a list of features, a description for how the program should be u
 ### Creating a Material
 Before a material can be added to a project, data about the material must be entered into the system.  This can be done on the "Materials" page:
 
-![material](https://user-images.githubusercontent.com/43157092/95592770-17843d00-0a17-11eb-99f2-4176a899b3b4.jpg)
+![material](https://user-images.githubusercontent.com/43157092/95593179-5b774200-0a17-11eb-808e-2ddc94e05667.jpg)
 
 Now that a material has been created, it can be added to a new, or existing project.
 Here's an example of an open project:
