@@ -1,6 +1,6 @@
 # Art Projects Manager
 
-This program's intendeduse is to facilitate record keeping and inventory control for a small arts and crafts business.
+This program's intended use is to facilitate record keeping and inventory control for a small arts and crafts business.
 Below, there's a list of features, a description for how the program should be used, and a technical explanation of construction.
 
 
